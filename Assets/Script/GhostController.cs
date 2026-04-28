@@ -78,7 +78,6 @@ public class GhostController : MonoBehaviour
         if (currentState == newState) return;
 
         currentState = newState;
-        Debug.Log("Ghost State Changed To: " + currentState);
     }
 
     private void DetectPlayer()
@@ -106,11 +105,6 @@ public class GhostController : MonoBehaviour
         if (NavMesh.SamplePosition(randomDirection, out hit, randomMoveRadius, NavMesh.AllAreas))
         {
             agent.SetDestination(hit.position);
-            Debug.Log("Ghost moves to: " + hit.position);
-        }
-        else
-        {
-            Debug.Log("No valid NavMesh point found.");
         }
     }
 
