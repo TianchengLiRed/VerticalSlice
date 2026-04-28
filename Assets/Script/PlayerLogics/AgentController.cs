@@ -5,19 +5,20 @@ using static UnityEditor.PlayerSettings;
 
 public class AgentController : MonoBehaviour
 {
-    [Header("ÒÆ¶¯Ïà¹Ø")]
+    [Header("ï¿½Æ¶ï¿½ï¿½ï¿½ï¿½")]
     [SerializeField] private float moveSpeed = 4f;
     [SerializeField] private int moveRange = 3;
-    [Header("·¶Î§Ïà¹Ø")]
+    [Header("ï¿½ï¿½Î§ï¿½ï¿½ï¿½")]
     private HashSet<Node> reachableNodes;
     private Node currentNode;
 
-    [Header("Éä»÷Ïà¹Ø")]
+    [Header("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½")]
     [SerializeField] private float range = 25f;
     [SerializeField] private float rotateSpeed = 350f;
     [SerializeField] private LayerMask groundMask;
     [SerializeField] private LayerMask enemyMask;
     [SerializeField] private float shootHeight = 1.2f;
+    [SerializeField] private float shootDamage = 25f;
     [SerializeField] private LineRenderer aimLine;
     private Camera cam;
     public enum PlayerState
@@ -26,7 +27,7 @@ public class AgentController : MonoBehaviour
         Moving,
         Aiming
     }
-    [Header("Íæ¼Ò×´Ì¬»ú")]
+    [Header("ï¿½ï¿½ï¿½×´Ì¬ï¿½ï¿½")]
     private PlayerState state = PlayerState.Idle;
     private void Start()
     {
@@ -58,11 +59,11 @@ public class AgentController : MonoBehaviour
 
     void HandleIdle()
     {
-        // ×ó¼üÒÆ¶¯
+        // ï¿½ï¿½ï¿½ï¿½Æ¶ï¿½
         if (Input.GetMouseButtonDown(0))
             Move();
 
-        // R½øÈëÃé×¼
+        // Rï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×¼
         if (Input.GetKeyDown(KeyCode.R))
         {
             state = PlayerState.Aiming;
@@ -75,34 +76,34 @@ public class AgentController : MonoBehaviour
 
         if (Physics.Raycast(ray, out RaycastHit hit))
         {
-            //ÉäÏßµã»÷Î»ÖÃÉè¶¨Îª target
+            //ï¿½ï¿½ï¿½ßµï¿½ï¿½Î»ï¿½ï¿½ï¿½è¶¨Îª target
             Vector3 point = hit.point;
 
             Vector2Int gridPos = new Vector2Int(
                 Mathf.RoundToInt(point.x / 2f),
                 Mathf.RoundToInt(point.z / 2f)
             );
-            //»ñµÃÆðµãÊäÈëpath finding
+            //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½path finding
             Node start = GetCurrentNode();
-            //»ñµÃÄ¿µÄµØÊäÈëpath finding
+            //ï¿½ï¿½ï¿½Ä¿ï¿½Äµï¿½ï¿½ï¿½ï¿½ï¿½path finding
             Node target = GridManager.Instance.GetNode(gridPos);
-            //²»ÄÜ×ß²»ÐÐ
+            //ï¿½ï¿½ï¿½ï¿½ï¿½ß²ï¿½ï¿½ï¿½
             if (target == null || !target.CanWalk())
             {
-                Debug.Log("Ã»·¨×ß");
+                Debug.Log("Ã»ï¿½ï¿½ï¿½ï¿½");
                 return;
             }
-            //³¬³ö·¶Î§²»ÐÐ
+            //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î§ï¿½ï¿½ï¿½ï¿½
             if (!reachableNodes.Contains(target))
             {
-                Debug.Log("³¬³öÒÆ¶¯·¶Î§");
+                Debug.Log("ï¿½ï¿½ï¿½ï¿½ï¿½Æ¶ï¿½ï¿½ï¿½Î§");
                 return;
             }
 
             List<Node> path = PathFinding.FindPath(start, target);
 
             if (path != null)
-                //¿ªÊ¼ÒÆ¶¯
+                //ï¿½ï¿½Ê¼ï¿½Æ¶ï¿½
                 StartCoroutine(FollowPath(path));
         }
     }
@@ -116,7 +117,7 @@ public class AgentController : MonoBehaviour
 
     Node GetCurrentNode()
     {
-        //»ñµÃµ±Ç°Íæ¼ÒÎ»ÖÃ
+        //ï¿½ï¿½Ãµï¿½Ç°ï¿½ï¿½ï¿½Î»ï¿½ï¿½
         Vector2Int pos = new Vector2Int(
             Mathf.RoundToInt(transform.position.x / 2f),
             Mathf.RoundToInt(transform.position.z / 2f)
@@ -124,16 +125,16 @@ public class AgentController : MonoBehaviour
 
         return GridManager.Instance.GetNode(pos);
     }
-    //¸ù¾Ýpath findingËã·¨Êä³öµÄÂ·¾¶ÒÆ¶¯
+    //ï¿½ï¿½ï¿½ï¿½path findingï¿½ã·¨ï¿½ï¿½ï¿½ï¿½ï¿½Â·ï¿½ï¿½ï¿½Æ¶ï¿½
     IEnumerator FollowPath(List<Node> path)
     {
         state = PlayerState.Moving;
 
         foreach (Node node in path)
         {
-            //»ñµÃtarget¿Í¹Û×ø±ê
+            //ï¿½ï¿½ï¿½targetï¿½Í¹ï¿½ï¿½ï¿½ï¿½ï¿½
             Vector3 targetPos = GridManager.Instance.GetWorldPosition(node);
-            //¸ù¾ÝpathÒÆ¶¯
+            //ï¿½ï¿½ï¿½ï¿½pathï¿½Æ¶ï¿½
             while (Vector3.Distance(transform.position, targetPos) > 0.05f)
             {
                 transform.position = Vector3.MoveTowards(
@@ -146,51 +147,51 @@ public class AgentController : MonoBehaviour
         }
 
         state = PlayerState.Idle;
-        //ÖØÐÂ¼ÆËãrangeË¢ÐÂ
+        //ï¿½ï¿½ï¿½Â¼ï¿½ï¿½ï¿½rangeË¢ï¿½ï¿½
         currentNode = GetCurrentNode();
         CalculateRange();
         TurnManager.Instance.PlayerFinishedAction();
     }
-    //ÒÆ¶¯·¶Î§ÏÞÖÆËã·¨µ÷ÓÃ
+    //ï¿½Æ¶ï¿½ï¿½ï¿½Î§ï¿½ï¿½ï¿½ï¿½ï¿½ã·¨ï¿½ï¿½ï¿½ï¿½
     void CalculateRange()
     {
         reachableNodes = GridRange.GetReachableNodes(currentNode, moveRange);
     }
-    //·¶Î§»­Ïß¿ÉÊÓ»¯ ¿ÉÉ¾
+    //ï¿½ï¿½Î§ï¿½ï¿½ï¿½ß¿ï¿½ï¿½Ó»ï¿½ ï¿½ï¿½É¾
     private void OnDrawGizmos()
     {
         if (reachableNodes == null) return;
         if (GridManager.Instance == null) return;
 
-        Gizmos.color = new Color(0f, 0.6f, 1f, 0.35f); // °ëÍ¸Ã÷À¶
+        Gizmos.color = new Color(0f, 0.6f, 1f, 0.35f); // ï¿½ï¿½Í¸ï¿½ï¿½ï¿½ï¿½
 
         foreach (Node node in reachableNodes)
         {
             Vector3 pos = GridManager.Instance.GetWorldPosition(node);
-            pos.y += 0.05f; // ·ÀÖ¹ºÍµØÃæZ fighting
+            pos.y += 0.05f; // ï¿½ï¿½Ö¹ï¿½Íµï¿½ï¿½ï¿½Z fighting
 
             Gizmos.DrawCube(pos, new Vector3(1.8f, 0.02f, 1.8f));
         }
     }
 
-    //¸úËæÊó±êÐý×ªÂß¼­
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×ªï¿½ß¼ï¿½
     void AimRotate()
     {
-        //´ÓcamÉä³öÉäÏß´òÏòÊó±êÎ»ÖÃ
+        //ï¿½ï¿½camï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ß´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î»ï¿½ï¿½
         Ray ray = cam.ScreenPointToRay(Input.mousePosition);
 
         if (Physics.Raycast(ray, out RaycastHit hit, 200f, groundMask))
         {
-            //»ñµÃÊó±êÔÚÊÀ½çµÄÎ»ÖÃ
-            //·½Ïò¼ÆËã
+            //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î»ï¿½ï¿½
+            //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
             Vector3 dir = hit.point - transform.position;
-            //·ÀÖ¹Ì§Í·
+            //ï¿½ï¿½Ö¹Ì§Í·
             dir.y = 0f;
-            //·ÀÖ¹Êó±êÔÙÍæ¼Ò½ÅÏÂ²úÉúbug
+            //ï¿½ï¿½Ö¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò½ï¿½ï¿½Â²ï¿½ï¿½ï¿½bug
             if (dir.sqrMagnitude < 0.01f) return;
-            //Ãæ³¯dir(Êó±êÎ»ÖÃ)
+            //ï¿½æ³¯dir(ï¿½ï¿½ï¿½Î»ï¿½ï¿½)
             Quaternion targetRot = Quaternion.LookRotation(dir);
-            //Æ½»¬ÒÆ¶¯
+            //Æ½ï¿½ï¿½ï¿½Æ¶ï¿½
             transform.rotation = Quaternion.RotateTowards(
            transform.rotation,
            targetRot,
@@ -206,29 +207,36 @@ public class AgentController : MonoBehaviour
 
         if (AmmoManager.Instance.CurrentAmmo <= 0)
         {
-            Debug.Log("Ã»×Óµ¯");
+            Debug.Log("Ã»ï¿½Óµï¿½");
             return;
         }
 
-        AmmoManager.Instance.UseAmmo(); // Ã÷È·¿´µ½¡°ÏûºÄ¡±
-        //Ç¹¿Ú¸ß¶È
+        AmmoManager.Instance.UseAmmo(); // ï¿½ï¿½È·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¡ï¿½
+        //Ç¹ï¿½Ú¸ß¶ï¿½
         Vector3 origin = transform.position + Vector3.up * shootHeight;
-        //Ãæ³¯·½Ïò
+        //ï¿½æ³¯ï¿½ï¿½ï¿½ï¿½
         Vector3 dir = transform.forward;
-        //Éä»÷ÉäÏß
+        //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         if (Physics.Raycast(origin, dir, out RaycastHit hit, range, enemyMask))
         {
-            Debug.Log("ÃüÖÐµÐÈË: " + hit.collider.name);
+            Debug.Log("å‘½ä¸­æ•Œäºº: " + hit.collider.name);
+
+            if (GhostHealth.Instance != null)
+            {
+                GhostHealth.Instance.TakeDamage(shootDamage);
+            }
             state = PlayerState.Idle;
 
             if (aimLine != null)
             {
                 aimLine.enabled = false;
             }
+            
+            
         }
         else
         {
-            Debug.Log("Ã»ÃüÖÐ");
+            Debug.Log("miss");
             state = PlayerState.Idle;
 
             if (aimLine != null)

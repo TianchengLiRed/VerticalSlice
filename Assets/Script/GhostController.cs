@@ -9,7 +9,8 @@ public class GhostController : MonoBehaviour
     public enum GhostState
     {
         Roaming,
-        Chasing
+        Chasing,
+        Attacking
     }
     [SerializeField] private GhostState currentState = GhostState.Roaming;
     [SerializeField] private float randomMoveRadius = 2f;
@@ -20,6 +21,10 @@ public class GhostController : MonoBehaviour
     [SerializeField] private float chaseDistance = 3f;
 
     private NavMeshAgent agent;
+    [Header("Attack")]
+    [SerializeField] private float attackRange = 1.5f;
+    [SerializeField] private float attackDamage = 20f;
+
 
     private void Awake()
     {
@@ -58,21 +63,27 @@ public class GhostController : MonoBehaviour
     }
 
     private void Action(int round)
+{
+    DetectPlayer();
+
+    agent.ResetPath();
+
+    switch (currentState)
     {
-        DetectPlayer();
-        agent.ResetPath();
+        case GhostState.Roaming:
+            RandomMove();
+            break;
 
-        switch (currentState)
-        {
-            case GhostState.Roaming:
-                RandomMove();
-                break;
+        case GhostState.Chasing:
+            Chase();
+            break;
 
-            case GhostState.Chasing:
-                Chase();
-                break;
-        }
+        case GhostState.Attacking:
+            Attack();
+            break;
+
     }
+}
     private void ChangeState(GhostState newState)
     {
         if (currentState == newState) return;
@@ -80,21 +91,25 @@ public class GhostController : MonoBehaviour
         currentState = newState;
     }
 
-    private void DetectPlayer()
+   private void DetectPlayer()
+{
+    if (player == null) return;
+
+    float distance = Vector3.Distance(transform.position, player.position);
+
+    if (distance <= attackRange)
     {
-        if (player == null) return;
-
-        float distance = Vector3.Distance(transform.position, player.position);
-
-        if (distance <= detectRange)
-        {
-            ChangeState(GhostState.Chasing);
-        }
-        else
-        {
-            ChangeState(GhostState.Roaming);
-        }
+        ChangeState(GhostState.Attacking);
     }
+    else if (distance <= detectRange)
+    {
+        ChangeState(GhostState.Chasing);
+    }
+    else
+    {
+        ChangeState(GhostState.Roaming);
+    }
+}
 
     private void RandomMove()
     {
@@ -128,6 +143,53 @@ public class GhostController : MonoBehaviour
             }
         }
     }
+
+    private void Attack()
+{
+    Debug.Log("Ghost attacks player!");
+
+    if (PlayerHealth.Instance != null)
+    {
+        PlayerHealth.Instance.TakeDamage(attackDamage);
+    }
+
+    TeleportOutsideDetectRange();
+}
+
+private void TeleportOutsideDetectRange()
+{
+    if (player == null) return;
+
+    float minDistance = detectRange + 2f;
+    float maxDistance = detectRange + 8f;
+
+    for (int i = 0; i < 30; i++)
+    {
+        Vector2 randomCircle = Random.insideUnitCircle.normalized * Random.Range(minDistance, maxDistance);
+
+        Vector3 targetPos = player.position + new Vector3(
+            randomCircle.x,
+            0f,
+            randomCircle.y
+        );
+
+        NavMeshHit hit;
+
+        if (NavMesh.SamplePosition(targetPos, out hit, 3f, NavMesh.AllAreas))
+        {
+            agent.Warp(hit.position); // 传送 NavMeshAgent
+            agent.ResetPath();
+
+            Debug.Log("Ghost teleported outside detect range.");
+            ChangeState(GhostState.Roaming);
+            return;
+        }
+    }
+
+    Debug.Log("No valid teleport position found.");
+
+    ChangeState(GhostState.Roaming);
+}
 
     private void OnDrawGizmosSelected()
     {

@@ -15,7 +15,8 @@ GameObject:
   - component: {fileID: 4130520085750447039}
   - component: {fileID: 300081203225870863}
   - component: {fileID: 4164155430466028401}
-  m_Layer: 0
+  - component: {fileID: 4319701286756007987}
+  m_Layer: 8
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -134,6 +135,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   shootHeight: 1.2
+  shootDamage: 25
   aimLine: {fileID: 4164155430466028401}
 --- !u!54 &300081203225870863
 Rigidbody:
@@ -266,6 +268,20 @@ LineRenderer:
   m_UseWorldSpace: 1
   m_Loop: 0
   m_ApplyActiveColorSpace: 1
+--- !u!114 &4319701286756007987
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3874560859230965316}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 98dd5608bfb8c4a7ea58959e60b342c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 100
+  currentHealth: 0
 --- !u!1 &7883662724925530868
 GameObject:
   m_ObjectHideFlags: 0
@@ -278,7 +294,7 @@ GameObject:
   - component: {fileID: 6663799696994902269}
   - component: {fileID: 8624032166614944974}
   - component: {fileID: 3946867605246702145}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}

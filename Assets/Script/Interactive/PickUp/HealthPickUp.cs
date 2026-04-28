@@ -1,24 +1,18 @@
 using UnityEngine;
 
-public class HealPickup : Collectible
+public class HealPickUp : MonoBehaviour
 {
     [SerializeField] private float healAmount = 25f;
 
-    protected override void OnCollect()
+    private void OnTriggerEnter(Collider other)
     {
-        HealthManager health = GetComponentFromPlayer();
+        if (!other.CompareTag("Player")) return;
 
-        if (health != null)
+        if (PlayerHealth.Instance != null)
         {
-            health.Heal(healAmount);
+            PlayerHealth.Instance.Heal(healAmount);
         }
-    }
 
-    private HealthManager GetComponentFromPlayer()
-    {
-        GameObject player = GameObject.FindGameObjectWithTag("Player");
-        if (player == null) return null;
-
-        return player.GetComponent<HealthManager>();
+        Destroy(gameObject);
     }
 }
