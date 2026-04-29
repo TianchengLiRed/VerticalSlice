@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class PlayerHealthBarUI : HealthBarUI
 {
+    private PlayerHealth currentPlayerHealth;
     private void Start()
     {
         if (PlayerHealth.Instance != null)
@@ -14,6 +15,29 @@ public class PlayerHealthBarUI : HealthBarUI
             );
         }
     }
+
+    private void BindPlayerHealth(PlayerHealth playerHealth)
+    {
+        if (currentPlayerHealth != null)
+        {
+            currentPlayerHealth.OnHealthChanged -= OnHealthChanged;
+        }
+
+        currentPlayerHealth = playerHealth;
+
+        currentPlayerHealth.OnHealthChanged += OnHealthChanged;
+
+        OnHealthChanged(
+            currentPlayerHealth.currentHealth,
+            currentPlayerHealth.maxHealth
+        );
+    }
+
+    private void OnEnable()
+    {
+        LevelSpawn.OnPlayerSpawned += BindPlayerHealth;
+    }
+
 
     private void OnDestroy()
     {

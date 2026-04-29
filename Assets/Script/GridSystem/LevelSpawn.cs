@@ -1,9 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class LevelSpawn : MonoBehaviour
 {
+    
+    public static event Action<PlayerHealth> OnPlayerSpawned;
     [Header("Player")]
     [SerializeField] private GameObject playerPrefab;
 
@@ -31,5 +34,12 @@ public class LevelSpawn : MonoBehaviour
         currentPlayer = Instantiate(playerPrefab, worldPosition, Quaternion.identity);
 
         spawnNode.SetOccupied(true);
+
+        PlayerHealth playerHealth = currentPlayer.GetComponent<PlayerHealth>();
+
+        if (playerHealth != null)
+        {
+            OnPlayerSpawned?.Invoke(playerHealth);
+        }
     }
 }

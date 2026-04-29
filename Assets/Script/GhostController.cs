@@ -37,6 +37,18 @@ public class GhostController : MonoBehaviour
         {
             TurnManager.Instance.OnTurnStarted += Action;
         }
+
+        LevelSpawn.OnPlayerSpawned += SetPlayer;
+    }
+
+    void SetPlayer(PlayerHealth health)
+    {
+         GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
+
+        if (playerObj != null)
+        {
+            player = playerObj.transform;
+        }
     }
 
     private void Update()
@@ -46,12 +58,6 @@ public class GhostController : MonoBehaviour
             TurnManager.Instance.OnTurnStarted += Action;
         }
 
-        GameObject playerObj = GameObject.FindGameObjectWithTag("Player");
-
-        if (playerObj != null)
-        {
-            player = playerObj.transform;
-        }
 
     }
     private void OnDisable()

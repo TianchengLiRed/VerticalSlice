@@ -207,6 +207,7 @@ public class AgentController : MonoBehaviour
 
         if (AmmoManager.Instance.CurrentAmmo <= 0)
         {
+            state = PlayerState.Idle;
             Debug.Log("û�ӵ�");
             return;
         }
