@@ -3712,8 +3712,8 @@ MonoBehaviour:
   currentState: 0
   randomMoveRadius: 2
   player: {fileID: 0}
-  detectRange: 5
-  chaseDistance: 2
+  detectRange: 7
+  chaseDistance: 3
   attackRange: 2
   attackDamage: 20
 --- !u!195 &1950473392
