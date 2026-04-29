@@ -1,4 +1,5 @@
 using UnityEngine;
+using Unity.VisualScripting;
 
 public class PlayerHealthBarUI : HealthBarUI
 {
@@ -50,5 +51,6 @@ public class PlayerHealthBarUI : HealthBarUI
     private void OnHealthChanged(float current, float max)
     {
         UpdateBar(current, max); 
+        EventBus.Trigger("PlayerDamaged");
     }
 }

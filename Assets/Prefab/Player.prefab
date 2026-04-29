@@ -125,7 +125,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 4
-  moveRange: 2
+  moveRange: 5
   range: 25
   rotateSpeed: 350
   groundMask:

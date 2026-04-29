@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.AI;
+using Unity.VisualScripting;
 
 public class GhostController : MonoBehaviour
 {
@@ -37,6 +38,7 @@ public class GhostController : MonoBehaviour
         {
             TurnManager.Instance.OnTurnStarted += Action;
         }
+        
 
         LevelSpawn.OnPlayerSpawned += SetPlayer;
     }
@@ -51,15 +53,7 @@ public class GhostController : MonoBehaviour
         }
     }
 
-    private void Update()
-    {
-        if (TurnManager.Instance != null)
-        {
-            TurnManager.Instance.OnTurnStarted += Action;
-        }
 
-
-    }
     private void OnDisable()
     {
         if (TurnManager.Instance != null)
@@ -131,6 +125,7 @@ public class GhostController : MonoBehaviour
 
     private void Chase()
     {
+        EventBus.Trigger("GhostDetected");
         Vector3 direction = player.position - transform.position;
         direction.y = 0f;
 

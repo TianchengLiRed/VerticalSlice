@@ -14,10 +14,16 @@ public class LevelSpawn : MonoBehaviour
     [SerializeField] private Vector2Int spawnGridPosition;
     private GameObject currentPlayer;
     
-    private void OnEnable()
-    {
-        RVcrash.OnGameStart += SpawnPlayer;//监听动画结束事件,结束后放置player
-    }
+   private void OnEnable()
+{
+    RVcrash.OnGameStart -= SpawnPlayer; // 先移除，防止重复订阅
+    RVcrash.OnGameStart += SpawnPlayer;
+}
+
+private void OnDisable()
+{
+    RVcrash.OnGameStart -= SpawnPlayer;
+}
 
     private void SpawnPlayer()
     {

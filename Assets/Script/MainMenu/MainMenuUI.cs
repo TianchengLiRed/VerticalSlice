@@ -44,6 +44,7 @@ public class MainMenuUI : MonoBehaviour
         startGame.gameObject.SetActive(true);
         quitGame.gameObject.SetActive(true);
         background1.gameObject.SetActive(false);
+        remindText.gameObject.SetActive(false);
     }
 
     private void StartGameOnClicked()

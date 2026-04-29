@@ -17,7 +17,23 @@ MonoBehaviour:
     portrait: {fileID: 0}
     voiceClip: {fileID: 0}
     content: What are you waiting for, open the computer(yellow box next to me) and
-      bring the teddy bear back to me
+      bring the graybox back to me
+    replyOptions: []
+    replyBranches: []
+    loopQuestion: 0
+  - speakerName: Commander
+    portrait: {fileID: 0}
+    voiceClip: {fileID: 0}
+    content: As a reminder, press W and use mouse to point the place next to you 
+      to move, and press R use mouse to aim and use press left click to shoot, move
+      and collide on those objects on the ground could get collect them
+    replyOptions: []
+    replyBranches: []
+    loopQuestion: 0
+  - speakerName: Commander
+    portrait: {fileID: 0}
+    voiceClip: {fileID: 0}
+    content: click on the computer to start right now!
     replyOptions: []
     replyBranches: []
     loopQuestion: 0

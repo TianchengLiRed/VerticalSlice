@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Unity.VisualScripting;
 
 public class PlayerHealth : HealthManager
 {
@@ -16,4 +17,10 @@ public class PlayerHealth : HealthManager
         Debug.Log("Player died. Game Over.");
         // 打开 GameOver UI
     }
+    public override void TakeDamage(float damage)
+   {
+       base.TakeDamage(damage);
+
+       EventBus.Trigger("PlayerDamaged");
+   }
 }
