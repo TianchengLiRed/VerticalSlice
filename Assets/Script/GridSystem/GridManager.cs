@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class GridManager : MonoBehaviour
@@ -24,43 +23,48 @@ public class GridManager : MonoBehaviour
         GenerateGrid();
     }
     //ͨ������xy����10*10map
-    private void GenerateGrid()
+   private void GenerateGrid()
+{
+    grid.Clear();
+
+    for (int x = 0; x < width; x++)
     {
-        grid.Clear();
-
-        for (int x = 0; x < width; x++)
+        for (int z = 0; z < depth; z++)
         {
-            for (int z = 0; z < depth; z++)
+            Vector2Int pos = new Vector2Int(x, z);
+
+            bool hasGround = TryGetGroundHeight(pos, out float height);
+
+            if (!hasGround)
             {
-                Vector2Int pos = new Vector2Int(x, z);
-                //�����Ӧheight��Ϣ��height
-                float height = GetHeightFromTerrain(pos);
-                //����diction
-                Node node = new Node(pos, height);
-                grid.Add(pos, node);
-
-               // CreateGridVisual(node);
-
+                continue; 
             }
+
+            Node node = new Node(pos, height);
+            grid.Add(pos, node);
         }
     }
+}
 
   
-    float GetHeightFromTerrain(Vector2Int gridPos)
+    [SerializeField] private LayerMask groundLayer;
+
+private bool TryGetGroundHeight(Vector2Int gridPos, out float height)
+{
+    Vector3 worldPos = transform.position +
+        new Vector3(gridPos.x * cellSize, 50f, gridPos.y * cellSize);
+
+    Ray ray = new Ray(worldPos, Vector3.down);
+
+    if (Physics.Raycast(ray, out RaycastHit hit, 100f, groundLayer))
     {
-        //����ÿһ������ͨ�����߻�ȡ�߶�
-        Vector3 worldPos = transform.position +
-                           new Vector3(gridPos.x * cellSize, 50f, gridPos.y * cellSize);
-
-        Ray ray = new Ray(worldPos, Vector3.down);
-
-        if (Physics.Raycast(ray, out RaycastHit hit, 100f))
-        {
-            return hit.point.y;
-        }
-
-        return 0;
+        height = hit.point.y;
+        return true;
     }
+
+    height = 0f;
+    return false;
+}
     public Node GetNode(Vector2Int gridPos)
     {
         if (grid.ContainsKey(gridPos))

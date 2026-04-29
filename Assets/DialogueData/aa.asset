@@ -16,7 +16,7 @@ MonoBehaviour:
   - speakerName: 1
     portrait: {fileID: 0}
     voiceClip: {fileID: 0}
-    content: aaa
+    content: Do your job ghost, click that yellow box next to me to start the task
     replyOptions: []
     replyBranches: []
     loopQuestion: 0

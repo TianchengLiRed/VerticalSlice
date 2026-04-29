@@ -13,10 +13,11 @@ MonoBehaviour:
   m_Name: NewDialogue
   m_EditorClassIdentifier: 
   lines:
-  - speakerName: 1
+  - speakerName: Commander
     portrait: {fileID: 0}
     voiceClip: {fileID: 0}
-    content: 111
+    content: What are you waiting for, open the computer(yellow box next to me) and
+      bring the teddy bear back to me
     replyOptions: []
     replyBranches: []
     loopQuestion: 0

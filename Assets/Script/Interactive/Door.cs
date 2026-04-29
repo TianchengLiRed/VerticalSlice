@@ -9,8 +9,9 @@ public class Door : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            QuestManager.Instance.SetQuest(QuestManager.QuestState.TalkToNPC);
             SceneManager.LoadScene("station");
         }
-
+        
     }
 }
