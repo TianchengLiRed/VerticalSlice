@@ -137,6 +137,10 @@ MonoBehaviour:
   shootHeight: 1.2
   shootDamage: 25
   aimLine: {fileID: 4164155430466028401}
+  blockLayer:
+    serializedVersion: 2
+    m_Bits: 1024
+  detectRange: 3
 --- !u!54 &300081203225870863
 Rigidbody:
   m_ObjectHideFlags: 0

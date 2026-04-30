@@ -25,10 +25,17 @@ public class AgentController : MonoBehaviour
     {
         Idle,           
         Moving,
-        Aiming
+        Aiming,
+        Interacting
     }
     [Header("���״̬��")]
     private PlayerState state = PlayerState.Idle;
+
+    [Header("Interaction")]
+    [SerializeField] private LayerMask blockLayer;
+    [SerializeField] private float detectRange = 2f;
+    private List<Blockable> blockObjs = new List<Blockable>();
+
     private void Start()
     {
         cam = Camera.main;
@@ -42,10 +49,12 @@ public class AgentController : MonoBehaviour
 
     void Update()
     {
+        InterRange();
+
         switch (state)
         {
             case PlayerState.Idle:
-                HandleIdle();
+                Idle();
                 break;
 
             case PlayerState.Moving:
@@ -54,10 +63,13 @@ public class AgentController : MonoBehaviour
             case PlayerState.Aiming:
                 Aim();
                 break;
+            case PlayerState.Interacting:
+                BlockInteract();
+                break;
         }
     }
 
-    void HandleIdle()
+    void Idle()
     {
         // ����ƶ�
         if (Input.GetMouseButtonDown(0))
@@ -67,6 +79,31 @@ public class AgentController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.R))
         {
             state = PlayerState.Aiming;
+        }
+        if(Input.GetKeyDown(KeyCode.E))
+        {
+            state = PlayerState.Interacting;
+        }
+    }
+
+     private void InterRange()
+    {
+        foreach (var obj in blockObjs)
+        {
+            if (obj != null) obj.SetHighlight(false);
+        }
+
+        blockObjs.Clear();
+
+        Collider[] hits = Physics.OverlapSphere(transform.position, detectRange, blockLayer);
+        foreach (var hit in hits)
+        {
+            Blockable blockable = hit.GetComponent<Blockable>();
+            if (blockable!= null)
+            {
+                blockable.SetHighlight(true);
+                blockObjs.Add(blockable);
+            }
         }
     }
 
@@ -266,5 +303,24 @@ public class AgentController : MonoBehaviour
         aimLine.positionCount = 2;
         aimLine.SetPosition(0, origin);
         aimLine.SetPosition(1, endPoint);
+    }
+
+    private void BlockInteract()
+    {
+        if (!Input.GetMouseButtonDown(0))
+        return;
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
+
+        if(Physics.Raycast(ray, out hit, 100f, blockLayer))
+        {
+            Blockable clickedObj = hit.collider.GetComponent<Blockable>();
+            if(clickedObj != null && blockObjs.Contains(clickedObj))
+            {
+                clickedObj.OnBlock();
+            }
+        }
+        state = PlayerState.Idle;
+        TurnManager.Instance.PlayerFinishedAction();
     }
 }

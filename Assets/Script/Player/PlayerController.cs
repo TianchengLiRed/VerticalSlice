@@ -150,7 +150,7 @@ public class PlayerController : MonoBehaviour
             }
             else if (clickedObj != null)
             {
-                Debug.Log("¿´¼ûÁË£¬µ«¹»²»µ½£¨³¬³ö½»»¥·¶Î§£©");
+                Debug.Log("ï¿½ï¿½ï¿½ï¿½ï¿½Ë£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Î§ï¿½ï¿½");
             }
         }
     }
