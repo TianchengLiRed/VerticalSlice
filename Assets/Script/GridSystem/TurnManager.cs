@@ -13,6 +13,7 @@ public class TurnManager : MonoBehaviour
     private float timer;
     private int currentRound = 0;
     private bool playerActed = false;
+    private bool isStarted = false;
 
     public float TimerPercent => timer / turnTime;
     public float CurrentTimer => timer;
@@ -25,19 +26,21 @@ public class TurnManager : MonoBehaviour
     //开始计时,后期可以放到真正开始游戏后
     void Start()
     {
-        StartTurn();
+        currentRound = 0;
     }
 
     private void Update()
     {
+        if (!isStarted) return;
         //倒计时
         Timer();
     }
-    void StartTurn()
+   public void StartTurn()
     {
         //开始计时
         timer = turnTime;
         playerActed = false;
+        isStarted = true;
         OnTurnStarted?.Invoke(currentRound);
     }
 
@@ -50,6 +53,7 @@ public class TurnManager : MonoBehaviour
 
     public void PlayerFinishedAction()
     {
+        if (!isStarted) return;
         //玩家行动后自动下一个回合
         playerActed = true;
         EndTurn();

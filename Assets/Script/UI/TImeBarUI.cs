@@ -16,6 +16,7 @@ public class TurnTimeBarUI : MonoBehaviour
             timeSlider.maxValue = 1f;
             timeSlider.value = 1f;
         }
+
     }
 
     private void Update()

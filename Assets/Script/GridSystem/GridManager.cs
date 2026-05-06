@@ -86,6 +86,13 @@ private bool TryGetGroundHeight(Vector2Int gridPos, out float height)
         );
     }
 
+    public Vector3 GetRangePosition(Node node)
+    {
+        return new Vector3(
+             transform.position.x + node.gridPos.x * cellSize,
+            node.height + 0.02f,
+            transform.position.z + node.gridPos.y * cellSize);
+    }
 
 private void OnDrawGizmos()
     {

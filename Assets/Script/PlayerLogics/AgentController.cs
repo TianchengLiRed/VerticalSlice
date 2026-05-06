@@ -21,6 +21,11 @@ public class AgentController : MonoBehaviour
     [SerializeField] private float shootDamage = 25f;
     [SerializeField] private LineRenderer aimLine;
     private Camera cam;
+
+    [Header("Visualization")]
+    [SerializeField] private GameObject rangePrefab;
+
+    private List<GameObject> rangeGroup = new List<GameObject>();
     public enum PlayerState
     {
         Idle,           
@@ -45,6 +50,7 @@ public class AgentController : MonoBehaviour
         {
             aimLine.enabled = false;
         }
+        TurnManager.Instance.OnTurnStarted += RangeVisual; 
     }
 
     void Update()
@@ -322,5 +328,28 @@ public class AgentController : MonoBehaviour
         }
         state = PlayerState.Idle;
         TurnManager.Instance.PlayerFinishedAction();
+    }
+
+   public void RangeVisual(int roundcount)
+    {
+        HideVisual();
+        currentNode = GetCurrentNode();
+        CalculateRange();
+
+        foreach(Node node in reachableNodes)
+        {
+            GameObject rp = Instantiate(rangePrefab, GridManager.Instance.GetRangePosition(node), Quaternion.Euler(0f, 0f, 0f));
+
+            rangeGroup.Add(rp);
+        }
+    }
+
+    private void HideVisual()
+    {
+        foreach(GameObject rp in rangeGroup)
+        {
+            Destroy(rp);
+        }
+        rangeGroup.Clear();
     }
 }

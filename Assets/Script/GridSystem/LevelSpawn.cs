@@ -47,5 +47,6 @@ private void OnDisable()
         {
             OnPlayerSpawned?.Invoke(playerHealth);
         }
+        TurnManager.Instance.StartTurn();
     }
 }

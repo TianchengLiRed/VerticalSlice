@@ -125,7 +125,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 4
-  moveRange: 5
+  moveRange: 2
   range: 25
   rotateSpeed: 350
   groundMask:
@@ -137,6 +137,8 @@ MonoBehaviour:
   shootHeight: 1.2
   shootDamage: 25
   aimLine: {fileID: 4164155430466028401}
+  rangePrefab: {fileID: 6844769999367214775, guid: 1247840ef1afc734281d4c124aebb051,
+    type: 3}
   blockLayer:
     serializedVersion: 2
     m_Bits: 1024
