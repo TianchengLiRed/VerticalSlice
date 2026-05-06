@@ -1,12 +1,15 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class TurnTimeBarUI : MonoBehaviour
 {
     [SerializeField] private Slider timeSlider;
+    [SerializeField] private TextMeshProUGUI RoundCount;
 
     private void Start()
     {
+        TurnManager.Instance.OnTurnStarted += RoundUpdate;
         if (timeSlider != null)
         {
             timeSlider.minValue = 0f;
@@ -21,5 +24,10 @@ public class TurnTimeBarUI : MonoBehaviour
         if (timeSlider == null) return;
 
         timeSlider.value = TurnManager.Instance.TimerPercent;
+    }
+
+    private void RoundUpdate(int roundcount)
+    {
+        RoundCount.text =""+ roundcount;
     }
 }
