@@ -16,6 +16,8 @@ public class GridManager : MonoBehaviour
     [SerializeField] private float heightOffset = 1f;
 
     public Dictionary<Vector2Int, Node> grid = new Dictionary<Vector2Int, Node>();
+    [SerializeField] private LayerMask groundLayer;
+    [SerializeField] private LayerMask obstacleLayer;
     //��awake���ɸ��ӱ�֤��ɫ����
     private void Awake()
     {
@@ -23,31 +25,33 @@ public class GridManager : MonoBehaviour
         GenerateGrid();
     }
     //ͨ������xy����10*10map
-   private void GenerateGrid()
-{
-    grid.Clear();
-
-    for (int x = 0; x < width; x++)
+    private void GenerateGrid()
     {
-        for (int z = 0; z < depth; z++)
+        grid.Clear();
+
+        for (int x = 0; x < width; x++)
         {
-            Vector2Int pos = new Vector2Int(x, z);
-
-            bool hasGround = TryGetGroundHeight(pos, out float height);
-
-            if (!hasGround)
+            for (int z = 0; z < depth; z++)
             {
-                continue; 
-            }
+                Vector2Int pos = new Vector2Int(x, z);
 
-            Node node = new Node(pos, height);
-            grid.Add(pos, node);
+                bool hasGround = TryGetGroundHeight(pos, out float height);
+
+                if (!hasGround)
+                {
+                    continue;
+                }
+
+                Node node = new Node(pos, height);
+                if (GetObstacle(node))
+                {
+                    node.isWalkable = false;
+                }
+
+                grid.Add(pos, node);
+            }
         }
     }
-}
-
-  
-    [SerializeField] private LayerMask groundLayer;
 
 private bool TryGetGroundHeight(Vector2Int gridPos, out float height)
 {
@@ -82,15 +86,15 @@ private bool TryGetGroundHeight(Vector2Int gridPos, out float height)
         );
     }
 
-    //������scene�еĿ��ӻ�
-    private void OnDrawGizmos()
+
+private void OnDrawGizmos()
     {
         if (grid == null) return;
 
-        Gizmos.color = Color.green;
-
         foreach (var node in grid.Values)
         {
+            Gizmos.color = node.isWalkable ? Color.green : Color.red;
+
             Vector3 worldPos = GetWorldPosition(node);
 
             Gizmos.DrawWireCube(
@@ -122,6 +126,17 @@ private bool TryGetGroundHeight(Vector2Int gridPos, out float height)
         }
 
         return neighbours;
+    }
+
+    private bool GetObstacle(Node node)
+    {
+        Vector3 worldPos = GetWorldPosition(node);
+
+        return Physics.CheckBox(
+            worldPos,
+            new Vector3(cellSize * 0.4f, 1f, cellSize * 0.4f),
+            Quaternion.identity,
+            obstacleLayer);
     }
 
 /*
