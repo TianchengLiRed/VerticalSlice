@@ -18,6 +18,8 @@ public class GhostController : MonoBehaviour
 
     [SerializeField] private Transform player;
     [SerializeField] private float detectRange = 8f;
+    [SerializeField] private float detectAngle = 90f;
+    [SerializeField] private LayerMask obstacleMask;
 
     [SerializeField] private float chaseDistance = 3f;
 
@@ -95,20 +97,39 @@ public class GhostController : MonoBehaviour
 {
     if (player == null) return;
 
-    float distance = Vector3.Distance(transform.position, player.position);
+        Vector3 dir = player.position - transform.position;
+        float distance = dir.magnitude;
+        float angle = Vector3.Angle(transform.forward, dir);
+        if (distance > detectRange)
+        {
+            ChangeState(GhostState.Roaming);
+            return;
+        }
+        if (angle > detectAngle * 0.5f)
+        {
+            ChangeState(GhostState.Roaming);
+            return;
+        }
 
-    if (distance <= attackRange)
-    {
-        ChangeState(GhostState.Attacking);
-    }
-    else if (distance <= detectRange)
-    {
-        ChangeState(GhostState.Chasing);
-    }
-    else
-    {
-        ChangeState(GhostState.Roaming);
-    }
+        Vector3 origin = transform.position + Vector3.up * 1f;
+        Vector3 direction = dir.normalized;
+        if (Physics.Raycast(origin, direction, out RaycastHit hit, detectRange, obstacleMask))
+        {
+            if (!hit.collider.CompareTag("Player"))
+            {
+                Debug.Log("Detected!");
+                ChangeState(GhostState.Chasing);
+                return;
+            }
+        }
+        if (distance <= attackRange)
+        {
+            ChangeState(GhostState.Attacking);
+        }
+        else
+        {
+            ChangeState(GhostState.Chasing);
+        }
 }
 
     private void RandomMove()
@@ -192,12 +213,17 @@ private void TeleportOutsideDetectRange()
     ChangeState(GhostState.Roaming);
 }
 
-    private void OnDrawGizmosSelected()
+    private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, detectRange);
 
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(transform.position, randomMoveRadius);
+        Vector3 left = Quaternion.Euler(0, -detectAngle / 2, 0) * transform.forward;
+        Vector3 right = Quaternion.Euler(0, detectAngle / 2, 0) * transform.forward;
+
+        Gizmos.color = Color.blue;
+
+        Gizmos.DrawRay(transform.position, left * detectRange);
+        Gizmos.DrawRay(transform.position, right * detectRange);
     }
 }

@@ -12,12 +12,13 @@ public class GridManager : MonoBehaviour
     //[SerializeField] private GameObject gridVisualPrefab;
     [SerializeField] private int width = 10;
     [SerializeField] private int depth = 10;
-    [SerializeField] private float cellSize = 2f;
+    public float cellSize = 2f;
     [SerializeField] private float heightOffset = 1f;
 
     public Dictionary<Vector2Int, Node> grid = new Dictionary<Vector2Int, Node>();
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private LayerMask obstacleLayer;
+    [SerializeField] private LayerMask InsaneLayer;
     //��awake���ɸ��ӱ�֤��ɫ����
     private void Awake()
     {
@@ -46,6 +47,10 @@ public class GridManager : MonoBehaviour
                 if (GetObstacle(node))
                 {
                     node.isWalkable = false;
+                }
+                if (GetInsane(node))
+                {
+                    node.isInsaneGrid = true;
                 }
 
                 grid.Add(pos, node);
@@ -100,7 +105,7 @@ private void OnDrawGizmos()
 
         foreach (var node in grid.Values)
         {
-            Gizmos.color = node.isWalkable ? Color.green : Color.red;
+            Gizmos.color = node.isInsaneGrid ? Color.black : node.isWalkable ? Color.green : Color.red;
 
             Vector3 worldPos = GetWorldPosition(node);
 
@@ -144,6 +149,15 @@ private void OnDrawGizmos()
             new Vector3(cellSize * 0.4f, 1f, cellSize * 0.4f),
             Quaternion.identity,
             obstacleLayer);
+    }
+
+    private bool GetInsane(Node node)
+    {
+        Vector3 worldPos = GetWorldPosition(node);
+        return Physics.CheckBox(
+            worldPos, new Vector3(cellSize * 0.4f, 1f, cellSize * 0.4f),
+            Quaternion.identity,
+            InsaneLayer);
     }
 
 /*

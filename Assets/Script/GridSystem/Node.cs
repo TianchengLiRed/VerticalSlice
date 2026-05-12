@@ -8,6 +8,8 @@ public class Node
     public Vector2Int gridPos;
     public float height;
     public bool isWalkable = true;
+    public bool isInsaneGrid;
+    public float damage = 3f;
     public bool isOccupied = false;
     public int gCost; // 起点到这里
     public int hCost; // 这里到终点

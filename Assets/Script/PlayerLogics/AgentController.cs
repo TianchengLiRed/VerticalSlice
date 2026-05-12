@@ -248,10 +248,16 @@ public class AgentController : MonoBehaviour
         if (!Input.GetMouseButtonDown(0))
             return;
 
-        if (AmmoManager.Instance.CurrentAmmo <= 0)
+        if (AmmoManager.Instance.CurrentAmmo <= 0)// no ammo bug fix
         {
+
             state = PlayerState.Idle;
-            Debug.Log("û�ӵ�");
+
+            if (aimLine != null)
+            {
+                aimLine.enabled = false;
+            }
+
             return;
         }
 
