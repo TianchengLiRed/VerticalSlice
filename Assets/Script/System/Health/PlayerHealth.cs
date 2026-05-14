@@ -20,6 +20,7 @@ public class PlayerHealth : HealthManager
     public override void TakeDamage(float damage)
    {
        base.TakeDamage(damage);
+        PlayerAttacked.Instance.PlayerAttackedEffect();
 
        EventBus.Trigger("PlayerDamaged");
    }

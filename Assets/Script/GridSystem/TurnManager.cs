@@ -60,6 +60,7 @@ public class TurnManager : MonoBehaviour
     }
     void Timer()
     {
+        if (!isStarted) return;
         //µ¹¼ÆÊ±
         timer -= Time.deltaTime;
 

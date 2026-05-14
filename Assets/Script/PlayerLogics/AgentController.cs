@@ -16,6 +16,7 @@ public class AgentController : MonoBehaviour
     [SerializeField] private float range = 25f;
     [SerializeField] private float rotateSpeed = 350f;
     [SerializeField] private LayerMask groundMask;
+    [SerializeField] private LayerMask clickMask;
     [SerializeField] private LayerMask enemyMask;
     [SerializeField] private float shootHeight = 1.2f;
     [SerializeField] private float shootDamage = 25f;
@@ -40,17 +41,32 @@ public class AgentController : MonoBehaviour
     [SerializeField] private LayerMask blockLayer;
     [SerializeField] private float detectRange = 2f;
     private List<Blockable> blockObjs = new List<Blockable>();
+    private void OnEnable()
+    {
+        LevelSpawn.OnPlayerSpawned += RangeVisualStart;
+
+        if (TurnManager.Instance != null)
+            TurnManager.Instance.OnTurnStarted += RangeVisual;
+    }
+
+    private void OnDisable()
+    {
+        LevelSpawn.OnPlayerSpawned -= RangeVisualStart;
+
+        if (TurnManager.Instance != null)
+            TurnManager.Instance.OnTurnStarted -= RangeVisual;
+    }
 
     private void Start()
     {
         cam = Camera.main;
         currentNode = GetCurrentNode();
         CalculateRange();
+
         if (aimLine != null)
-        {
             aimLine.enabled = false;
-        }
-        TurnManager.Instance.OnTurnStarted += RangeVisual; 
+
+        RangeVisual(0); // 保险：玩家自己生成完成后也直接画一次
     }
 
     void Update()
@@ -117,7 +133,7 @@ public class AgentController : MonoBehaviour
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
-        if (Physics.Raycast(ray, out RaycastHit hit))
+        if (Physics.Raycast(ray, out RaycastHit hit, 100f, clickMask))
         {
             //���ߵ��λ���趨Ϊ target
             Vector3 point = hit.point;
@@ -336,6 +352,10 @@ public class AgentController : MonoBehaviour
         TurnManager.Instance.PlayerFinishedAction();
     }
 
+    public void RangeVisualStart(PlayerHealth health)
+    {
+        RangeVisual(0);
+    }
    public void RangeVisual(int roundcount)
     {
         HideVisual();
@@ -344,7 +364,7 @@ public class AgentController : MonoBehaviour
 
         foreach(Node node in reachableNodes)
         {
-            GameObject rp = Instantiate(rangePrefab, GridManager.Instance.GetRangePosition(node), Quaternion.Euler(0f, 0f, 0f));
+            GameObject rp = Instantiate(rangePrefab, GridManager.Instance.GetWorldPosition(node), Quaternion.Euler(0f, 0f, 0f));
 
             rangeGroup.Add(rp);
         }

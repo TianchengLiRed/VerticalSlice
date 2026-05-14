@@ -18,10 +18,11 @@ public class GhostController : MonoBehaviour
 
     [SerializeField] private Transform player;
     [SerializeField] private float detectRange = 8f;
-    [SerializeField] private float detectAngle = 90f;
+    [SerializeField] private float detectAngle = 360f;
     [SerializeField] private LayerMask obstacleMask;
 
     [SerializeField] private float chaseDistance = 3f;
+    private Coroutine chaseRoutine;
 
     private NavMeshAgent agent;
     [Header("Attack")]
@@ -89,48 +90,49 @@ public class GhostController : MonoBehaviour
     private void ChangeState(GhostState newState)
     {
         if (currentState == newState) return;
+        Debug.Log($"Ghost State: {currentState} -> {newState}");
 
         currentState = newState;
     }
 
-   private void DetectPlayer()
-{
-    if (player == null) return;
+    private void DetectPlayer()
+    {
+        if (player == null) return;
 
         Vector3 dir = player.position - transform.position;
         float distance = dir.magnitude;
-        float angle = Vector3.Angle(transform.forward, dir);
+
+        if (distance <= attackRange)
+        {
+            ChangeState(GhostState.Attacking);
+            return;
+        }
         if (distance > detectRange)
         {
             ChangeState(GhostState.Roaming);
             return;
         }
+        /*
+        float angle = Vector3.Angle(transform.forward, dir);
+
         if (angle > detectAngle * 0.5f)
         {
             ChangeState(GhostState.Roaming);
             return;
         }
-
+        */
         Vector3 origin = transform.position + Vector3.up * 1f;
-        Vector3 direction = dir.normalized;
-        if (Physics.Raycast(origin, direction, out RaycastHit hit, detectRange, obstacleMask))
+        Vector3 target = player.position + Vector3.up * 1f;
+        Vector3 direction = (target - origin).normalized;
+        float rayDistance = Vector3.Distance(origin, target);
+
+        if (Physics.Raycast(origin, direction, rayDistance, obstacleMask))
         {
-            if (!hit.collider.CompareTag("Player"))
-            {
-                Debug.Log("Detected!");
-                ChangeState(GhostState.Chasing);
-                return;
-            }
+            ChangeState(GhostState.Roaming);
+            return;
         }
-        if (distance <= attackRange)
-        {
-            ChangeState(GhostState.Attacking);
-        }
-        else
-        {
-            ChangeState(GhostState.Chasing);
-        }
-}
+        ChangeState(GhostState.Chasing);
+    }
 
     private void RandomMove()
     {
@@ -147,22 +149,79 @@ public class GhostController : MonoBehaviour
     private void Chase()
     {
         EventBus.Trigger("GhostDetected");
-        Vector3 direction = player.position - transform.position;
-        direction.y = 0f;
 
-        if (direction.magnitude <= chaseDistance)
+        if (player == null) return;
+
+        NavMeshPath path = new NavMeshPath();
+
+        if (!agent.CalculatePath(player.position, path))
         {
-            agent.SetDestination(player.position);
+            Debug.Log("No path to player.");
+            return;
         }
-        else
-        {
-            Vector3 limitedTarget = transform.position + direction.normalized * chaseDistance;
 
-            NavMeshHit hit;
-            if (NavMesh.SamplePosition(limitedTarget, out hit, 1.5f, NavMesh.AllAreas))
+        if (path.corners.Length < 2)
+        {
+            return;
+        }
+
+        Vector3 targetPos = GetPointAlongPath(path, chaseDistance);
+
+        agent.ResetPath();
+        agent.isStopped = false;
+        agent.SetDestination(targetPos);
+
+        if (chaseRoutine != null)
+            StopCoroutine(chaseRoutine);
+
+        chaseRoutine = StartCoroutine(StopAfterDistance(chaseDistance));
+    }
+
+    private Vector3 GetPointAlongPath(NavMeshPath path, float maxDistance)
+    {
+        float remainingDistance = maxDistance;
+
+        for (int i = 0; i < path.corners.Length - 1; i++)
+        {
+            Vector3 start = path.corners[i];
+            Vector3 end = path.corners[i + 1];
+
+            float distance = Vector3.Distance(start, end);
+
+            if (distance <= remainingDistance)
             {
-                agent.SetDestination(hit.position);
+                remainingDistance -=distance;
             }
+            else
+            {
+                Vector3 direction = (end - start).normalized;
+                return start + direction * remainingDistance;
+            }
+        }
+
+        return path.corners[path.corners.Length - 1];
+    }
+
+    private IEnumerator StopAfterDistance(float maxDistance)
+    {
+        Vector3 lastPos = transform.position;
+        float movedDistance = 0f;
+
+        while (agent.pathPending || agent.hasPath)
+        {
+            float stepDistance = Vector3.Distance(transform.position, lastPos);
+            movedDistance += stepDistance;
+            lastPos = transform.position;
+
+            if (movedDistance >= maxDistance)
+            {
+                agent.ResetPath();
+                agent.isStopped = true;
+                Debug.Log("Ghost stopped after moving max distance: " + movedDistance);
+                yield break;
+            }
+
+            yield return null;
         }
     }
 
@@ -202,13 +261,11 @@ private void TeleportOutsideDetectRange()
             agent.Warp(hit.position); // 传送 NavMeshAgent
             agent.ResetPath();
 
-            Debug.Log("Ghost teleported outside detect range.");
             ChangeState(GhostState.Roaming);
             return;
         }
     }
 
-    Debug.Log("No valid teleport position found.");
 
     ChangeState(GhostState.Roaming);
 }

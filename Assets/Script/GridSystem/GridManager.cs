@@ -13,7 +13,7 @@ public class GridManager : MonoBehaviour
     [SerializeField] private int width = 10;
     [SerializeField] private int depth = 10;
     public float cellSize = 2f;
-    [SerializeField] private float heightOffset = 1f;
+    [SerializeField] private float heightOffset = 0f;
 
     public Dictionary<Vector2Int, Node> grid = new Dictionary<Vector2Int, Node>();
     [SerializeField] private LayerMask groundLayer;
@@ -67,7 +67,7 @@ private bool TryGetGroundHeight(Vector2Int gridPos, out float height)
 
     if (Physics.Raycast(ray, out RaycastHit hit, 100f, groundLayer))
     {
-        height = hit.point.y;
+        height = hit.point.y - 0.8f;
         return true;
     }
 
@@ -89,14 +89,6 @@ private bool TryGetGroundHeight(Vector2Int gridPos, out float height)
             node.height+heightOffset,
             transform.position.z + node.gridPos.y * cellSize
         );
-    }
-
-    public Vector3 GetRangePosition(Node node)
-    {
-        return new Vector3(
-             transform.position.x + node.gridPos.x * cellSize,
-            node.height + 0.02f,
-            transform.position.z + node.gridPos.y * cellSize);
     }
 
 private void OnDrawGizmos()
@@ -159,14 +151,4 @@ private void OnDrawGizmos()
             Quaternion.identity,
             InsaneLayer);
     }
-
-/*
-    private void CreateGridVisual(Node node)
-    {
-        Vector3 pos = GetWorldPosition(node);
-        pos.y -=1f; ;
-
-        Instantiate(gridVisualPrefab, pos, Quaternion.identity);
-    }
-   */
 }
