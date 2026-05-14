@@ -7,7 +7,7 @@ public class Computer : Interactive
 {
     public override void OnInteract()
     {
-        SceneManager.LoadScene("HauntedHouse");
+        SceneManager.LoadScene("Description");
         if (QuestManager.Instance.CurrentQuest != QuestManager.QuestState.UseComputer)
             return;
 

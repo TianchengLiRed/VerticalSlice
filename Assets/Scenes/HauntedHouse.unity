@@ -5560,6 +5560,9 @@ MonoBehaviour:
   chaseDistance: 3
   attackRange: 2
   attackDamage: 20
+  alertImage: {fileID: 8760201307251797599, guid: 5417d3f81fd4a384e94771ed1fc12a0d,
+    type: 3}
+  alertDuration: 1
 --- !u!195 &1950473392
 NavMeshAgent:
   m_ObjectHideFlags: 0

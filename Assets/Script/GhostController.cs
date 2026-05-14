@@ -28,6 +28,10 @@ public class GhostController : MonoBehaviour
     [Header("Attack")]
     [SerializeField] private float attackRange = 1.5f;
     [SerializeField] private float attackDamage = 20f;
+    [SerializeField] private GameObject alertImage;
+    [SerializeField] private float alertDuration = 1f;
+
+    private Coroutine alertRoutine;
 
 
     private void Awake()
@@ -93,6 +97,8 @@ public class GhostController : MonoBehaviour
         Debug.Log($"Ghost State: {currentState} -> {newState}");
 
         currentState = newState;
+
+        
     }
 
     private void DetectPlayer()
