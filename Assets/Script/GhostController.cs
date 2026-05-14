@@ -94,7 +94,13 @@ public class GhostController : MonoBehaviour
     private void ChangeState(GhostState newState)
     {
         if (currentState == newState) return;
-        Debug.Log($"Ghost State: {currentState} -> {newState}");
+
+        if(newState == GhostState.Chasing)
+        {
+            GhostAlertUI.Instance.ShowAlert();
+            Debug.Log("Alert!");
+
+        }
 
         currentState = newState;
 
