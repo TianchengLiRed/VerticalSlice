@@ -27,7 +27,7 @@ This state machine are highly connected with other systems in the game. It espec
 
 ### Break-Down
 
-This feature will implement that when a player moves to a black area, reduce insanity each turn to achieve that the player loses sanity if they hide in the dark for too long.
+Question 1: This feature will implement that when a player moves to a black area, reduce insanity each turn to achieve that the player loses sanity if they hide in the dark for too long.
 Basic steps:
 1. create new grid type which is insane grid
    -  add more data of grid in the node, add type "insane" by add bool isInsaneGrid and damage value. Create a new layer called InsaneLayer.
@@ -45,7 +45,9 @@ Basic steps:
    -  Run the game and stay in black area(InsaneGrid) for more than one turn to check if everything worked.
 
 Question 2: Yes, because this breakdown helps me break down these complicated features into some small functions that i need to implement, by thinking in that way it really help me understand the whole structure of the feature and inspired me how to achieve this feature across multiple systems. For example, stay in the dark for too long will lose sanity. By breaking down this feature instead of thinking, create a whole script that inlude clarify dark areas, lose sanity, and timer. I will use my existing system, the Grid system to create new grid type and check the grid, turn the system to record turn, health system to reduce sanity. Which makes my game more integrated, reduces my unnecessary works and keeps my system structure clear and separated. Also it helps me coding with more structured idea which increases my efficiency for exmaple in check grid i could know to getcurrentNode first then check grid type by using two different method and  what algorithm i need to use to transfer world position to grid coordinates, i will spend more time to figure out how to checkgrid each turn which is the only thing in my brain without any structured idea. If i will do this again, i will improve it by adding more debug steps in the break down so that i can make sure every specific steps are implemented their function, and if theres bug emerges it will help me quickly identify which steps create this bug or which steps didn't implement their function. Also I will clarify which system this step is using and how they connecting to other system to make steps more structured and keep system saparated.
+### Visual Scripting
 
+### Unity System
 Question 4: Please Grade my Unity system part based on my Navmesh system. Please check how ghost generated path when detect player, how i limited its moving distance based on navmesh path, how player interacting with the door to block ghost's path affecting its path generation to make ghost change the path, and also the roaming function is based on Navmesh system.
 
 ## Milestone 3 Devlog
