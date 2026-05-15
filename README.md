@@ -33,8 +33,11 @@ Basic steps:
    -  add more data of grid in the node, add type "insane" by add bool isInsaneGrid and damage value. Create a new layer called InsaneLayer.
    -  Create a new method to check InsaneLayer by creating a new physicsbox and to check if this box collide with InsaneLayer. 
    -  Add this method to geneatedGrid() method to make sure it check every grid while generating it. if the check box collided with InsaneLayer then set the node of this grid, node.isInsance = true;
-3. add a function to check the gridtype under the players position every turn
-4. create reduce sanity function
+   -  add a new type in OnDrawGizmos() method to draw visualized grid . add node.isInsase?black into Gizmos. color to draw every grid with different color based on grid type. Run the game and test if gizmos draws black grid on the grid which is InsaneLayer.
+2. add a function to check the gridtype under the players position every turn
+   - Create a new script called InsaneGrid, assgin it to player, Create a new method GetCurrentNode()to get player's current grid node with a specific algorithm that divide player's position by cellsize to transfer its position data to cell coordinates. Then use method GetNode in GridManager to get corresponding grid of this coordinates to get player's grid location.
+   - Create a new method called checkGrid to check the current grid type. Assign result from GetCurrentNode() to local variable node and use if(node.isInsaneGrid) to check whether current node is InsaneGrid;
+3. create reduce sanity function
 
 ## Milestone 3 Devlog
 Milestone 3 Devlog goes here.
