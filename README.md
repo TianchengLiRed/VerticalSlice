@@ -24,7 +24,32 @@ This state machine are highly connected with other systems in the game. It espec
 
 
 ## Milestone 2 Devlog
-Milestone 2 Devlog goes here.
+
+### Break-Down
+
+Question 1: This feature will implement that when a player moves to a black area, reduce insanity each turn to achieve that the player loses sanity if they hide in the dark for too long.
+Basic steps:
+1. create new grid type which is insane grid
+   -  add more data of grid in the node, add type "insane" by add bool isInsaneGrid and damage value. Create a new layer called InsaneLayer.
+   -  Create a new method to check InsaneLayer by creating a new physicsbox and to check if this box collide with InsaneLayer. 
+   -  Add this method to geneatedGrid() method to make sure it check every grid while generating it. if the check box collided with InsaneLayer then set the node of this grid, node.isInsance = true;
+   -  add a new type in OnDrawGizmos() method to draw visualized grid . add node.isInsase?black into Gizmos. color to draw every grid with different color based on grid type. Run the game and test if gizmos draws black grid on the grid which is InsaneLayer.
+2. add a function to check the gridtype under the players position every turn
+   - Create a new script called InsaneGrid, assgin it to player, Create a new method GetCurrentNode()to get player's current grid node with a specific algorithm that divide player's position by cellsize to transfer its position data to cell coordinates. Then use method GetNode in GridManager to get corresponding grid of this coordinates to get player's grid location.
+   - Create a new method called checkGrid to check the current grid type. Assign result from GetCurrentNode() to local variable node and use if(node.isInsaneGrid) to check whether current node is InsaneGrid; Make CheckGrid method subscribe OnTurnStarted to make sure it check the grid every turn.
+   -  Add Debug function inside and run the game to check if it successful check the grid type.
+3. create reduce sanity function
+   - Create a new int turnCount to check how many turn player have stayed in the dark. if player in the insaneGrid each turn then add 1 to turncount by add turnCount++ in the if(node.isInsaneGrid).
+   -  create a new if statement if(turnCount >= 2) inside the if(node.isInsaneGrid). To check player stay more than 1 turn which consider as "too long".
+   -  use function TakeDamage from Playerhealth, to reduce the player's sanity based on the data of damage in node by adding PlayerHealth.Instance.TakeDamage(node.damage);
+   -  Run the game and stay in black area(InsaneGrid) for more than one turn to check if everything worked.
+
+Question 2: Yes, because this breakdown helps me break down these complicated features into some small functions that i need to implement, by thinking in that way it really help me understand the whole structure of the feature and inspired me how to achieve this feature across multiple systems. For example, stay in the dark for too long will lose sanity. By breaking down this feature instead of thinking, create a whole script that inlude clarify dark areas, lose sanity, and timer. I will use my existing system, the Grid system to create new grid type and check the grid, turn the system to record turn, health system to reduce sanity. Which makes my game more integrated, reduces my unnecessary works and keeps my system structure clear and separated. Also it helps me coding with more structured idea which increases my efficiency for exmaple in check grid i could know to getcurrentNode first then check grid type by using two different method and  what algorithm i need to use to transfer world position to grid coordinates, i will spend more time to figure out how to checkgrid each turn which is the only thing in my brain without any structured idea. If i will do this again, i will improve it by adding more debug steps in the break down so that i can make sure every specific steps are implemented their function, and if theres bug emerges it will help me quickly identify which steps create this bug or which steps didn't implement their function. Also I will clarify which system this step is using and how they connecting to other system to make steps more structured and keep system saparated.
+### Visual Scripting
+
+### Unity System
+Question 4: Please Grade my Unity system part based on my Navmesh system. Please check how ghost generated path when detect player, how i limited its moving distance based on navmesh path, how player interacting with the door to block ghost's path affecting its path generation to make ghost change the path, and also the roaming function is based on Navmesh system.
+
 ## Milestone 3 Devlog
 Milestone 3 Devlog goes here.
 ## Milestone 4 Devlog
