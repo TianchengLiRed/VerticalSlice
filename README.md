@@ -24,7 +24,18 @@ This state machine are highly connected with other systems in the game. It espec
 
 
 ## Milestone 2 Devlog
-Milestone 2 Devlog goes here.
+
+### Break-Down
+
+This feature will implement that when a player moves to a black area, reduce insanity each turn to achieve that the player loses sanity if they hide in the dark for too long.
+Basic steps:
+1. create new grid type which is insane grid
+   -  add more data of grid in the node, add type "insane" by add bool isInsaneGrid and damage value. Create a new layer called InsaneLayer.
+   -  Create a new method to check InsaneLayer by creating a new physicsbox and to check if this box collide with InsaneLayer. 
+   -  Add this method to geneatedGrid() method to make sure it check every grid while generating it. if the check box collided with InsaneLayer then set the node of this grid, node.isInsance = true;
+3. add a function to check the gridtype under the players position every turn
+4. create reduce sanity function
+
 ## Milestone 3 Devlog
 Milestone 3 Devlog goes here.
 ## Milestone 4 Devlog
