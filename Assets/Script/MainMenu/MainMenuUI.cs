@@ -9,14 +9,12 @@ public class MainMenuUI : MonoBehaviour
 {
     [SerializeField] private Button startGame;
     [SerializeField] private Button quitGame;
-    [SerializeField] private Image background1;
     [SerializeField] private TextMeshProUGUI remindText;
     // Start is called before the first frame update
     void Start()
     {
         startGame.gameObject.SetActive(false);
         quitGame.gameObject.SetActive(false);
-        background1.gameObject.SetActive(true);
         remindText.gameObject.SetActive(true);
 
         startGame.onClick.AddListener(StartGameOnClicked);
@@ -43,7 +41,6 @@ public class MainMenuUI : MonoBehaviour
     {
         startGame.gameObject.SetActive(true);
         quitGame.gameObject.SetActive(true);
-        background1.gameObject.SetActive(false);
         remindText.gameObject.SetActive(false);
     }
 

@@ -325,7 +325,7 @@ Transform:
   m_GameObject: {fileID: 81087303}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.88, y: 4.57, z: 5.57}
+  m_LocalPosition: {x: 5.2, y: 4.57, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -939,7 +939,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 10
+  orthographic size: 12
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -964,7 +964,7 @@ Transform:
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
   m_LocalRotation: {x: 0.23911765, y: 0.3696438, z: -0.09904577, w: 0.89239913}
-  m_LocalPosition: {x: -5.9, y: 16.5, z: -8.9}
+  m_LocalPosition: {x: -5.14, y: 18.35, z: -8.14}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1265,8 +1265,8 @@ Transform:
   m_GameObject: {fileID: 415276591}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6.854, y: -3.63, z: 18.3}
-  m_LocalScale: {x: 10.343468, y: 3.774, z: 2.3912}
+  m_LocalPosition: {x: 6.854, y: -3.73, z: 18.8}
+  m_LocalScale: {x: 10.343468, y: 3.774, z: 1.1857005}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1781561066}
@@ -3313,7 +3313,7 @@ Transform:
   m_GameObject: {fileID: 1257298263}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.39, y: 4.61, z: 5.26}
+  m_LocalPosition: {x: 3.92, y: 4.61, z: 10.11}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3941,6 +3941,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e8ddb9f6a82d4e4293214799a623499, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  TimeBarUI: {fileID: 1479959438}
+  currentRound: 0
 --- !u!1 &1433505366
 GameObject:
   m_ObjectHideFlags: 0
@@ -4084,6 +4086,8 @@ GameObject:
   - component: {fileID: 1479959439}
   - component: {fileID: 1479959441}
   - component: {fileID: 1479959440}
+  - component: {fileID: 1479959443}
+  - component: {fileID: 1479959442}
   m_Layer: 11
   m_Name: TimeBarUI
   m_TagString: Untagged
@@ -4120,7 +4124,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1479959438}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6c3f48e97e717ca469ccd4cd1c104335, type: 3}
   m_Name: 
@@ -4178,6 +4182,41 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &1479959442
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1479959438}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2fe5546f775c47d2820aa5e8a715f53, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _data:
+    _json: '{"nest":{"source":"Macro","macro":0,"embed":null}}'
+    _objectReferences:
+    - {fileID: 11400000, guid: d3f2aaed57266436986d006f86fcbb63, type: 2}
+--- !u!114 &1479959443
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1479959438}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e741851cba3ad425c91ecf922cc6b379, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _data:
+    _json: '{"declarations":{"Kind":"Object","collection":{"$content":[{"name":"timeSlider","value":{"$content":0,"$type":"UnityEngine.Object"},"typeHandle":{"Identification":"UnityEngine.UI.Slider,
+      UnityEngine.UI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null","$version":"A"},"$version":"A"},{"name":"roundCount","value":{"$content":1,"$type":"UnityEngine.Object"},"typeHandle":{"Identification":"TMPro.TextMeshProUGUI,
+      Unity.TextMeshPro, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null","$version":"A"},"$version":"A"}],"$version":"A"},"$version":"A"}}'
+    _objectReferences:
+    - {fileID: 1479959441}
+    - {fileID: 584877655}
 --- !u!1 &1485884786
 GameObject:
   m_ObjectHideFlags: 0
@@ -4454,7 +4493,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: GhostHP
+  m_text: Ghost's HP
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -4774,7 +4813,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 79c2a809dca755f409382df50b693f19, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetPosition: {x: -5, y: 1.5, z: 0}
+  targetPosition: {x: -4, y: 1.5, z: 1}
   speed: 20
 --- !u!65 &1642412824
 BoxCollider:
@@ -4856,7 +4895,7 @@ Transform:
   m_GameObject: {fileID: 1642412822}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -5.4, y: 0.21970582, z: 34.413044}
+  m_LocalPosition: {x: -5.4, y: 0.21970582, z: 17.7}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5009,8 +5048,8 @@ Transform:
   m_GameObject: {fileID: 1699511787}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.35, y: 2.01, z: 2.67}
-  m_LocalScale: {x: 4.4785357, y: 1, z: 4.47}
+  m_LocalPosition: {x: -1.7937, y: 2.01, z: 3.16}
+  m_LocalScale: {x: 3.5765593, y: 1, z: 6.040453}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1059839738}
@@ -5731,10 +5770,10 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 1.3178905
-  m_Height: 2.635781
+  m_Radius: 0.53925925
+  m_Height: 1.9280167
   m_Direction: 1
-  m_Center: {x: -0.11854446, y: 0.20930982, z: -0.00042784214}
+  m_Center: {x: 0.033017796, y: -0.14457259, z: -0.0004278819}
 --- !u!114 &1950473394
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5918,7 +5957,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Agent Insanity
+  m_text: Agent's sanity
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

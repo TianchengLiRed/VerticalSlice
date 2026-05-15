@@ -2,28 +2,29 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Unity.VisualScripting;
 
 public class TurnManager : MonoBehaviour
 {
     public static TurnManager Instance;
     public event Action<int> OnTurnStarted;
+    public GameObject TimeBarUI;
 
-    [Header("»ØºÏ»ù±¾Âß¼­")]
+    [Header("ï¿½ØºÏ»ï¿½ï¿½ï¿½ï¿½ß¼ï¿½")]
     private float turnTime = 5f;
     private float timer;
-    private int currentRound = 0;
+    public int currentRound = 0;
     private bool playerActed = false;
     private bool isStarted = false;
 
-    public float TimerPercent => timer / turnTime;
     public float CurrentTimer => timer;
-    //ÊµÀýÊ¹ÓÃ
+    //Êµï¿½ï¿½Ê¹ï¿½ï¿½
     void Awake()
     {
         Instance = this;
     }
     
-    //¿ªÊ¼¼ÆÊ±,ºóÆÚ¿ÉÒÔ·Åµ½ÕæÕý¿ªÊ¼ÓÎÏ·ºó
+    //ï¿½ï¿½Ê¼ï¿½ï¿½Ê±,ï¿½ï¿½ï¿½Ú¿ï¿½ï¿½Ô·Åµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¼ï¿½ï¿½Ï·ï¿½ï¿½
     void Start()
     {
         currentRound = 0;
@@ -32,21 +33,23 @@ public class TurnManager : MonoBehaviour
     private void Update()
     {
         if (!isStarted) return;
-        //µ¹¼ÆÊ±
+        //ï¿½ï¿½ï¿½ï¿½Ê±
         Timer();
     }
    public void StartTurn()
     {
-        //¿ªÊ¼¼ÆÊ±
+        //ï¿½ï¿½Ê¼ï¿½ï¿½Ê±
         timer = turnTime;
         playerActed = false;
         isStarted = true;
         OnTurnStarted?.Invoke(currentRound);
+        CustomEvent.Trigger(TimeBarUI,"RoundUpdate");
+        Debug.Log("Triggered!");
     }
 
     void EndTurn()
     {
-        //Turn½áÊøÖØÐÂ¿ªÊ¼¼ÆÊ±
+        //Turnï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â¿ï¿½Ê¼ï¿½ï¿½Ê±
         currentRound++;
         StartTurn();
     }
@@ -54,21 +57,26 @@ public class TurnManager : MonoBehaviour
     public void PlayerFinishedAction()
     {
         if (!isStarted) return;
-        //Íæ¼ÒÐÐ¶¯ºó×Ô¶¯ÏÂÒ»¸ö»ØºÏ
+        //ï¿½ï¿½ï¿½ï¿½Ð¶ï¿½ï¿½ï¿½ï¿½Ô¶ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½Øºï¿½
         playerActed = true;
         EndTurn();
     }
     void Timer()
     {
         if (!isStarted) return;
-        //µ¹¼ÆÊ±
+        //ï¿½ï¿½ï¿½ï¿½Ê±
         timer -= Time.deltaTime;
 
         if (timer <= 0f && !playerActed)
         {
-            //µ½µãÁË×Ô¶¯ÏÂÒ»¸ö»ØºÏ
+            //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô¶ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½Øºï¿½
             Debug.Log("Time up! Auto next round.");
             EndTurn();
         }
     }
+
+    public float GetTimerPercent()
+   {
+     return timer / turnTime;
+   }
 }

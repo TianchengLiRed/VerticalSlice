@@ -24,7 +24,8 @@ public class TurnTimeBarUI : MonoBehaviour
         if (TurnManager.Instance == null) return;
         if (timeSlider == null) return;
 
-        timeSlider.value = TurnManager.Instance.TimerPercent;
+        float time = TurnManager.Instance.GetTimerPercent();
+        timeSlider.value = time;
     }
 
     private void RoundUpdate(int roundcount)

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class InsaneGrid : MonoBehaviour
 {
+    private int turnCount = 0;
     private void Start()
     {
         TurnManager.Instance.OnTurnStarted += CheckGrid;
@@ -13,10 +14,19 @@ public class InsaneGrid : MonoBehaviour
     {
         Node node = GetCurrentNode();
         if(node != null && node.isInsaneGrid)
-        {
-            PlayerHealth.Instance.TakeDamage(node.damage);
-            Debug.Log("Insane!");
-        }
+{
+    turnCount++;
+
+    if(turnCount >= 2)
+    {
+        PlayerHealth.Instance.TakeDamage(node.damage);
+        Debug.Log("Insane!");
+    }
+}
+else
+{
+    turnCount = 0;
+}
     }
 
     private Node GetCurrentNode()
