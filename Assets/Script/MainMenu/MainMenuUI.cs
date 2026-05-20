@@ -46,7 +46,7 @@ public class MainMenuUI : MonoBehaviour
 
     private void StartGameOnClicked()
     {
-        SceneManager.LoadScene("Station");
+        SceneManager.LoadScene("CutScene");
     }
 
     private void QuitGameOnClicked()

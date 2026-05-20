@@ -16,14 +16,45 @@ MonoBehaviour:
   - speakerName: 
     portrait: {fileID: 0}
     voiceClip: {fileID: 0}
-    content: test
+    content: 'Once, he was only another ghost hiding in the ruins,
+
+
+'
     replyOptions: []
     replyBranches: []
     loopQuestion: 0
   - speakerName: 
     portrait: {fileID: 0}
     voiceClip: {fileID: 0}
-    content: testtest
+    content: feeding on fear, memory, and unfinished regrets.
+    replyOptions: []
+    replyBranches: []
+    loopQuestion: 0
+  - speakerName: 
+    portrait: {fileID: 0}
+    voiceClip: {fileID: 0}
+    content: feeding on fear, memory, and unfinished regrets.
+    replyOptions: []
+    replyBranches: []
+    loopQuestion: 0
+  - speakerName: 
+    portrait: {fileID: 0}
+    voiceClip: {fileID: 0}
+    content: Then the Bureau caught him.
+    replyOptions: []
+    replyBranches: []
+    loopQuestion: 0
+  - speakerName: 
+    portrait: {fileID: 0}
+    voiceClip: {fileID: 0}
+    content: They did not exorcise him. They did not forgive him.
+    replyOptions: []
+    replyBranches: []
+    loopQuestion: 0
+  - speakerName: 
+    portrait: {fileID: 0}
+    voiceClip: {fileID: 0}
+    content: They give him a badge
     replyOptions: []
     replyBranches: []
     loopQuestion: 0
