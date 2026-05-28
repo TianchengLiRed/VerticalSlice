@@ -5,10 +5,12 @@ using UnityEngine;
 public class GhostHealth : HealthManager
 {
     public static GhostHealth Instance;
+    private GhostController ghostController;
 
     private void Awake()
     {
         Instance = this;
+        ghostController = GetComponent<GhostController>();
     }
     public override void Heal(float amount)
     {
@@ -25,7 +27,7 @@ public class GhostHealth : HealthManager
     public override void TakeDamage(float damage)
    {
        base.TakeDamage(damage);
-        PlayerAttacked.Instance.PlayerAttackedEffect();
+       ghostController.ShowHitAlert();
    }
 }
 

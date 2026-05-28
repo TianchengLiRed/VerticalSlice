@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GhostAlertUI : MonoBehaviour
 {
-    public static GhostAlertUI Instance;
+
     [SerializeField] private Transform target;
     [SerializeField] private Vector3 offset = new Vector3(0, 2f, 0);
     [SerializeField] private float flashTime = 1f;
@@ -14,7 +14,6 @@ public class GhostAlertUI : MonoBehaviour
 
     private void Awake()
     {
-        Instance = this;
         rectTransform = GetComponent<RectTransform>();
         mainCam = Camera.main;
 
@@ -27,6 +26,11 @@ public class GhostAlertUI : MonoBehaviour
         mainCam.WorldToScreenPoint(target.position + offset);
 
         rectTransform.position = screenPos;
+    }
+
+    public void Init(Transform newTarget)
+    {
+        target = newTarget;
     }
 
     public void ShowAlert()

@@ -146,10 +146,14 @@ MonoBehaviour:
   aimLine: {fileID: 4164155430466028401}
   rangePrefab: {fileID: 6844769999367214775, guid: 1247840ef1afc734281d4c124aebb051,
     type: 3}
+  state: 0
   blockLayer:
     serializedVersion: 2
     m_Bits: 1024
   detectRange: 3
+  aimBlockMask:
+    serializedVersion: 2
+    m_Bits: 3200
 --- !u!54 &300081203225870863
 Rigidbody:
   m_ObjectHideFlags: 0

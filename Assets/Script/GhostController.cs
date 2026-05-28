@@ -28,8 +28,13 @@ public class GhostController : MonoBehaviour
     [Header("Attack")]
     [SerializeField] private float attackRange = 1.5f;
     [SerializeField] private float attackDamage = 20f;
-    [SerializeField] private GameObject alertImage;
     [SerializeField] private float alertDuration = 1f;
+    [SerializeField] private GhostAlertUI alertPrefab;
+    [SerializeField] private GhostAlertUI attackedPrefab;
+    [SerializeField] private Transform alertUIParent;
+
+    private GhostAlertUI alertUI;
+    private GhostAlertUI hitUI;
 
     private Coroutine alertRoutine;
 
@@ -46,6 +51,11 @@ public class GhostController : MonoBehaviour
             TurnManager.Instance.OnTurnStarted += Action;
         }
         
+        alertUI = Instantiate(alertPrefab, alertUIParent);
+        alertUI.Init(transform);
+
+        hitUI = Instantiate(attackedPrefab, alertUIParent);
+        hitUI.Init(transform);
 
         LevelSpawn.OnPlayerSpawned += SetPlayer;
     }
@@ -97,8 +107,7 @@ public class GhostController : MonoBehaviour
 
         if(newState == GhostState.Chasing)
         {
-            GhostAlertUI.Instance.ShowAlert();
-            Debug.Log("Alert!");
+            alertUI.ShowAlert();
 
         }
 
@@ -295,4 +304,9 @@ private void TeleportOutsideDetectRange()
         Gizmos.DrawRay(transform.position, left * detectRange);
         Gizmos.DrawRay(transform.position, right * detectRange);
     }
+
+    public void ShowHitAlert()
+{
+    hitUI.ShowAlert();
+}
 }

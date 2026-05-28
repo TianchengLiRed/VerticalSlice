@@ -35,12 +35,14 @@ public class AgentController : MonoBehaviour
         Interacting
     }
     [Header("���״̬��")]
-    private PlayerState state = PlayerState.Idle;
+    public PlayerState state = PlayerState.Idle;
 
     [Header("Interaction")]
     [SerializeField] private LayerMask blockLayer;
     [SerializeField] private float detectRange = 2f;
     private List<Blockable> blockObjs = new List<Blockable>();
+    [SerializeField] private LayerMask aimBlockMask;
+
     private void OnEnable()
     {
         LevelSpawn.OnPlayerSpawned += RangeVisualStart;
@@ -298,9 +300,11 @@ public class AgentController : MonoBehaviour
         //�泯����
         Vector3 dir = transform.forward;
         //�������
-        if (Physics.Raycast(origin, dir, out RaycastHit hit, range, enemyMask))
+        if (Physics.Raycast(origin, dir, out RaycastHit hit, range, aimBlockMask))
         {
-            Debug.Log("命中敌人: " + hit.collider.name);
+            if (((1 << hit.collider.gameObject.layer) & enemyMask) != 0)
+            {
+                Debug.Log("命中敌人: " + hit.collider.name);
 
             if (GhostHealth.Instance != null)
             {
@@ -311,6 +315,18 @@ public class AgentController : MonoBehaviour
             if (aimLine != null)
             {
                 aimLine.enabled = false;
+            }
+
+            }
+            else
+            {
+                Debug.Log("Block");
+                state = PlayerState.Idle;
+
+            if (aimLine != null)
+            {
+                aimLine.enabled = false;
+            }
             }
             
             
