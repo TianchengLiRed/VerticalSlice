@@ -184,18 +184,31 @@ public class AgentController : MonoBehaviour
 
         return GridManager.Instance.GetNode(pos);
     }
-    //����path finding�㷨�����·���ƶ�
+
+
     IEnumerator FollowPath(List<Node> path)
     {
         state = PlayerState.Moving;
 
         foreach (Node node in path)
         {
+
+
             //���target�͹�����
             Vector3 targetPos = GridManager.Instance.GetWorldPosition(node);
             //����path�ƶ�
             while (Vector3.Distance(transform.position, targetPos) > 0.05f)
             {
+                Vector3 facdir = targetPos - transform.position;
+                facdir.y = 0f;
+
+                Quaternion targetRot = Quaternion.LookRotation(facdir);
+                transform.rotation = Quaternion.RotateTowards(
+                    transform.rotation,
+                    targetRot,
+                    rotateSpeed * Time.deltaTime
+                );
+
                 transform.position = Vector3.MoveTowards(
                     transform.position,
                     targetPos,

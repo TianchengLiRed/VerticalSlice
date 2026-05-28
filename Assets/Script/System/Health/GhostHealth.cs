@@ -21,4 +21,11 @@ public class GhostHealth : HealthManager
         Debug.Log("Ghost died.");
         gameObject.SetActive(false);
     }
+
+    public override void TakeDamage(float damage)
+   {
+       base.TakeDamage(damage);
+        PlayerAttacked.Instance.PlayerAttackedEffect();
+   }
 }
+
