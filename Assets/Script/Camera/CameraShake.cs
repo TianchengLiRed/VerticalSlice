@@ -21,6 +21,7 @@ public class CameraShake : MonoBehaviour
 
     public void Shake()
     {
+        Debug.Log("Camera Shake Called");
         StopAllCoroutines();
         StartCoroutine(ShakeRoutine());
     }

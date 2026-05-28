@@ -21,6 +21,7 @@ public class PlayerHealth : HealthManager
    {
        base.TakeDamage(damage);
         PlayerAttacked.Instance.PlayerAttackedEffect();
+        CameraShake.Instance.Shake();
         EventBus.Trigger("PlayerAttacked");
 
         EventBus.Trigger("PlayerDamaged");
