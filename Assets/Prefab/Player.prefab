@@ -112,10 +112,10 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 5.965665
-  m_Height: 27.80113
+  m_Radius: 3.5980577
+  m_Height: 27.42083
   m_Direction: 1
-  m_Center: {x: -0.014989375, y: 11.978797, z: 0.4190993}
+  m_Center: {x: 0.19334792, y: 11.788647, z: -0.29531714}
 --- !u!114 &4130520085750447039
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -354,9 +354,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _data:
-    _json: '{"nest":{"source":"Macro","macro":0,"embed":null}}'
-    _objectReferences:
-    - {fileID: 11400000, guid: 6b193aff9d3729a4c8788254dfb88a4e, type: 2}
+    _json: '{"nest":{"source":"Macro","macro":null,"embed":null}}'
+    _objectReferences: []
 --- !u!1 &7883662724925530868
 GameObject:
   m_ObjectHideFlags: 0
