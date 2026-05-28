@@ -254,7 +254,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: HauntedHouse
+  m_text: NewLevel1
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8a89fa14b10d46a99122fd4f73fca9a2, type: 2}
   m_sharedMaterial: {fileID: 2140474, guid: 8a89fa14b10d46a99122fd4f73fca9a2, type: 2}
@@ -388,7 +388,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: HauntedHouse
+  m_text: NewLevel2
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8a89fa14b10d46a99122fd4f73fca9a2, type: 2}
   m_sharedMaterial: {fileID: 2140474, guid: 8a89fa14b10d46a99122fd4f73fca9a2, type: 2}
@@ -558,7 +558,7 @@ MonoBehaviour:
   hoverScale: {x: 1.2, y: 1.2, z: 1.2}
   scaleSpeed: 10
   namePanel: {fileID: 1474642022}
-  sceneName: HauntedHouse
+  sceneName: NewLevel2
 --- !u!114 &411526591
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -784,7 +784,7 @@ MonoBehaviour:
   hoverScale: {x: 1.2, y: 1.2, z: 1.2}
   scaleSpeed: 10
   namePanel: {fileID: 679416444}
-  sceneName: HauntedHouse
+  sceneName: NewLevel1
 --- !u!114 &516914282
 MonoBehaviour:
   m_ObjectHideFlags: 0
