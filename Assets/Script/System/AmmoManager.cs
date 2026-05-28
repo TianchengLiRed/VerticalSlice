@@ -7,6 +7,7 @@ public class AmmoManager : MonoBehaviour
 
     public event Action<int> OnAmmoChanged;
 
+    [SerializeField] private int maxAmmo = 6;
     [SerializeField] private int currentAmmo = 3;
     public int CurrentAmmo => currentAmmo;
 
@@ -18,6 +19,7 @@ public class AmmoManager : MonoBehaviour
     public void AddAmmo(int amount)
     {
         currentAmmo += amount;
+        currentAmmo = Mathf.Clamp(currentAmmo, 0, maxAmmo);
         OnAmmoChanged?.Invoke(currentAmmo);
     }
 
@@ -25,7 +27,7 @@ public class AmmoManager : MonoBehaviour
     {
         if (currentAmmo <= 0)
         {
-            Debug.Log("没有子弹");
+            Debug.Log("没锟斤拷锟接碉拷");
             return false;
         }
 

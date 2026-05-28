@@ -1,17 +1,19 @@
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class AmmoUI : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI ammoText;
+    [SerializeField] private Image[] ammoImages;
 
     private void Start()
     {
-        UpdateAmmoText();
+        UpdateAmmoUI(AmmoManager.Instance.CurrentAmmo);
 
         if (AmmoManager.Instance != null)
         {
-            AmmoManager.Instance.OnAmmoChanged += HandleAmmoChanged;
+            AmmoManager.Instance.OnAmmoChanged += AmmoChanged;
         }
     }
 
@@ -19,19 +21,24 @@ public class AmmoUI : MonoBehaviour
     {
         if (AmmoManager.Instance != null)
         {
-            AmmoManager.Instance.OnAmmoChanged -= HandleAmmoChanged;
+            AmmoManager.Instance.OnAmmoChanged -= AmmoChanged;
         }
     }
 
-    private void HandleAmmoChanged(int ammo)
+    private void AmmoChanged(int ammo)
     {
-        UpdateAmmoText();
+        UpdateAmmoUI(ammo);
     }
 
-    private void UpdateAmmoText()
+    private void UpdateAmmoUI(int currentAmmo)
     {
         if (ammoText == null || AmmoManager.Instance == null) return;
+        ammoText.text = "Ammo: " + currentAmmo;
+        for (int i = 0; i < ammoImages.Length; i++)
+        {
+            ammoImages[i].gameObject.SetActive(i < currentAmmo);
+        }
 
-        ammoText.text = "Ammo: " + AmmoManager.Instance.CurrentAmmo;
+
     }
 }
