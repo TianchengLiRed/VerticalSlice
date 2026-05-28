@@ -244,6 +244,7 @@ public class GhostController : MonoBehaviour
     if (PlayerHealth.Instance != null)
     {
         PlayerHealth.Instance.TakeDamage(attackDamage);
+        CameraShake.Instance.Shake();
     }
 
     TeleportOutsideDetectRange();

@@ -101,10 +101,12 @@ public class AgentController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.R))
         {
             state = PlayerState.Aiming;
+            HideVisual();
         }
         if(Input.GetKeyDown(KeyCode.E))
         {
             state = PlayerState.Interacting;
+            HideVisual();
         }
     }
 
