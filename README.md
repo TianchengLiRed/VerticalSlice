@@ -50,10 +50,15 @@ Question 2: Yes, because this breakdown helps me break down these complicated fe
 Question 3: I build my TimebarUI on visual scripting, I called specific method on C# script using node in visual scripting. In the On Start I set the minimal value to 0 and maximum value to 1 of the bar to set the scale and initate the bar. In the On Update I called method GetTimerPercent() from C# script TurnManager, it divide current time to whole turn time get percantage of the time that normalized to 0-1 and fit in my bar. Then I assign set TMP roundcount by string round: and roundcount int data that i get from getter node from C# script TurnManager, to implement time bar reduce while time decrease and text record current round count. The purpose of the architecture is to divde UI visualization and system logic to ensure the MVC structure in the game. The C# script TurnManager response for every logics and data of turn-base and timebar visual scripting response for UI related with time and turn which only able to access data by calling TurnManager, rather than create their own data storation logic in the visualscripting which is mess. This calling process, calling C# method from visual scripting using particular nodes keeps scripts , system and the game more organized.
 
 ### Unity System
-Question 4: Please Grade my Unity system part based on my Navmesh system. Please check how ghost generated path when detect player, how i limited its moving distance based on navmesh path, how player interacting with the door to block ghost's path affecting its path generation to make ghost change the path, and also the roaming function is based on Navmesh system.
+Question 4: Please Grade my Unity system part based on my Navmesh system. Please check how ghost generated path when detect player, how i limited its moving distance based on navmesh path, how player interacting with the door to block ghost's path affecting its path generation to make ghost change the path, and also the roaming function is based on Navmesh system. 
 
 ## Milestone 3 Devlog
-Milestone 3 Devlog goes here.
+Question1:
+
+Question2: Based on the playtest feedback, I mainly improved the visualization mechanics of the game. Implemented that the player changes direction when moving. Implemented the magazine UI to visualize ammo and the mode UI to clarify the player's current mode. In the move mode, the plane's color will change when the player hovers over it. Implemented the camera zooming function. Implemented the camera follow player function. Implemented camera shaking when the player is attacked by the ghost. Added Ghost's icon when attacked by a player. Added level choosing mechanic.
+
+Question3: Because my game is level-based, I added 3 more levels as new content, and players can choose a different level on the computer by clicking different buttons. Each level has a unique level design, the number of ghosts, and space arrangement. Replaced the whitebox with 3D assets. Replace UI with 2D assets, added one more NPC in the station room, now there are 3 NPCs you can talk with, one commander and two ghosts (unrelated to the main storyline) in the form of capsules.
+
 ## Milestone 4 Devlog
 Milestone 4 Devlog goes here.
 ## Final Devlog
