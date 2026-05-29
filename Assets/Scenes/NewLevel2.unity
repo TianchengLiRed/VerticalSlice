@@ -2317,7 +2317,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shakeDuration: 0.2
-  shakeMagnitude: 1
+  shakeMagnitude: 0.2
 --- !u!114 &330585550
 MonoBehaviour:
   m_ObjectHideFlags: 0
