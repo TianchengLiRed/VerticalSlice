@@ -53,9 +53,19 @@ Question 3: I build my TimebarUI on visual scripting, I called specific method o
 Question 4: Please Grade my Unity system part based on my Navmesh system. Please check how ghost generated path when detect player, how i limited its moving distance based on navmesh path, how player interacting with the door to block ghost's path affecting its path generation to make ghost change the path, and also the roaming function is based on Navmesh system. 
 
 ## Milestone 3 Devlog
+
 Question1:
+<img width="667" height="510" alt="截屏2026-05-28 21 43 33" src="https://github.com/user-attachments/assets/2ef479ab-0bb0-41d7-8cbf-e008de66fcf5" />
+
+Description: This shadergraph achieves a glowing breathing color effect with flowing noise, which is used on the ghost, and collectible objects include ammo (bullets) and health. Graders can find the effect on ghosts, those collectible objects in levels, and find the graph through Assets/ShaderGraph/GhostGlowing (shader).  The shader achieves this effect by combining the Fresnel Node for brightness, the Lerp Node for changing color combination, and the Gradient Noise Node for flowing noise. 
+
+First, I added two color properties and added them to the Lerp node. The Lerp node will interpolate between two color depends on T as the interpolation ratio. I input (sin(Time)+1)/2 to T by using Time, add and divide node, achieved changing T value from 0 to 1 soomthly by time, which makes the interpolation of the color change smoothly between two colors to achieve a breathing color effect.
+Then, I added a Gradient Noise Node to create noise on my shader. Using Tilting and Offset Node to control Noise's UV coordinates. I input Time * 0.1(* 0.1 to slow down its moving speed) to Offset, the UV coordinates will gradually change and move depending on changing offset driven by time which achieve the effect of flowing noise.
+Then, I added Fresnel effect, connect created float property Fresnel Power to the power input, which controls the sharpness of Fresnel effect, I input 1 from Fresnel Power that makes soft and gradually glowing, multiply it by 2 using Multiply Node to make it brighter. Finally I combine these three effect using 2 Multiply Nodes and put it to the Base Color output to achieve the effect of glowing breathing color effect with flowing Noise to simluate spirit status of the ghost and as visualization of collectible objects.
+
 
 Question2: Based on the playtest feedback, I mainly improved the visualization mechanics of the game. Implemented that the player changes direction when moving. Implemented the magazine UI to visualize ammo and the mode UI to clarify the player's current mode. In the move mode, the plane's color will change when the player hovers over it. Implemented the camera zooming function. Implemented the camera follow player function. Implemented camera shaking when the player is attacked by the ghost. Added Ghost's icon when attacked by a player. Added level choosing mechanic.
+
 
 Question3: Because my game is level-based, I added 3 more levels as new content, and players can choose a different level on the computer by clicking different buttons. Each level has a unique level design, the number of ghosts, and space arrangement. Replaced the whitebox with 3D assets. Replace UI with 2D assets, added one more NPC in the station room, now there are 3 NPCs you can talk with, one commander and two ghosts (unrelated to the main storyline) in the form of capsules.
 
