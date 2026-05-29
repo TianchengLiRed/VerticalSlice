@@ -29,9 +29,15 @@ public class GhostController : MonoBehaviour
     [SerializeField] private float attackRange = 1.5f;
     [SerializeField] private float attackDamage = 20f;
     [SerializeField] private float alertDuration = 1f;
+
+    [Header("Icons")]
     [SerializeField] private GhostAlertUI alertPrefab;
     [SerializeField] private GhostAlertUI attackedPrefab;
+    [SerializeField] private GhostHealthBarUI healthBarPrefab;
     [SerializeField] private Transform alertUIParent;
+
+    private GhostHealthBarUI healthBarUI;
+    private GhostHealth ghostHealth;
 
     private GhostAlertUI alertUI;
     private GhostAlertUI hitUI;
@@ -46,16 +52,20 @@ public class GhostController : MonoBehaviour
 
     private void Start()
     {
+        ghostHealth = GetComponent<GhostHealth>();
         if (TurnManager.Instance != null)
         {
             TurnManager.Instance.OnTurnStarted += Action;
         }
         
         alertUI = Instantiate(alertPrefab, alertUIParent);
-        alertUI.Init(transform);
+        alertUI.Initiate(transform);
 
         hitUI = Instantiate(attackedPrefab, alertUIParent);
-        hitUI.Init(transform);
+        hitUI.Initiate(transform);
+
+        healthBarUI = Instantiate(healthBarPrefab, alertUIParent);
+        healthBarUI.Initiate(ghostHealth);
 
         LevelSpawn.OnPlayerSpawned += SetPlayer;
     }
@@ -309,4 +319,17 @@ private void TeleportOutsideDetectRange()
 {
     hitUI.ShowAlert();
 }
+
+public void DestroyUI()
+{
+    if (healthBarUI != null)
+        Destroy(healthBarUI.gameObject);
+
+    if (alertUI != null)
+        Destroy(alertUI.gameObject);
+
+    if (hitUI != null)
+        Destroy(hitUI.gameObject);
+}
+
 }

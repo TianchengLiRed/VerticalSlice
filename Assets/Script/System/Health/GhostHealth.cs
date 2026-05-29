@@ -1,33 +1,35 @@
-using System.Collections;
-using System.Collections.Generic;
+using System.Collections; 
+using System.Collections.Generic; 
 using UnityEngine;
 
 public class GhostHealth : HealthManager
 {
-    public static GhostHealth Instance;
     private GhostController ghostController;
 
     private void Awake()
     {
-        Instance = this;
         ghostController = GetComponent<GhostController>();
     }
+
     public override void Heal(float amount)
     {
-        // Ghost 不回血
         return;
     }
 
     protected override void Die()
     {
         Debug.Log("Ghost died.");
+        if (ghostController != null)
+        ghostController.DestroyUI();
         gameObject.SetActive(false);
+
     }
 
     public override void TakeDamage(float damage)
-   {
-       base.TakeDamage(damage);
-       ghostController.ShowHitAlert();
-   }
-}
+    {
+        base.TakeDamage(damage);
 
+        if (ghostController != null)
+            ghostController.ShowHitAlert();
+    }
+}

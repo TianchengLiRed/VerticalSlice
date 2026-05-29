@@ -28,7 +28,7 @@ public class GhostAlertUI : MonoBehaviour
         rectTransform.position = screenPos;
     }
 
-    public void Init(Transform newTarget)
+    public void Initiate(Transform newTarget)
     {
         target = newTarget;
     }

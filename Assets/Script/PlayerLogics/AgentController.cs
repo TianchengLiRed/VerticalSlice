@@ -291,7 +291,6 @@ public class AgentController : MonoBehaviour
                 aimLine.enabled = false;
             }
 
-            return;
         }
 
         AmmoManager.Instance.UseAmmo(); // ��ȷ���������ġ�
@@ -304,12 +303,11 @@ public class AgentController : MonoBehaviour
         {
             if (((1 << hit.collider.gameObject.layer) & enemyMask) != 0)
             {
-                Debug.Log("命中敌人: " + hit.collider.name);
-
-            if (GhostHealth.Instance != null)
-            {
-                GhostHealth.Instance.TakeDamage(shootDamage);
-            }
+               GhostHealth ghostHealth = hit.collider.GetComponentInParent<GhostHealth>();
+               if (ghostHealth != null)
+               {
+                    ghostHealth.TakeDamage(shootDamage);
+                }
             state = PlayerState.Idle;
 
             if (aimLine != null)

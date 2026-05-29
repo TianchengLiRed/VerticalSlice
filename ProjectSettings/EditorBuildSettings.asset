@@ -20,4 +20,13 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/HauntedHouse.unity
     guid: 99c9720ab356a0642a771bea13969a05
+  - enabled: 1
+    path: Assets/Scenes/NewLevel1.unity
+    guid: 072afcefdf8f8a044ae6960dec6b6ccd
+  - enabled: 1
+    path: Assets/Scenes/NewLevel2.unity
+    guid: c99039d36bba840068f411cb8182a902
+  - enabled: 1
+    path: Assets/Scenes/TutorialLevel.unity
+    guid: e8746fe8e886a486aa430064215590da
   m_configObjects: {}
