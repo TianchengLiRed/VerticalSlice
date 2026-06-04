@@ -135,6 +135,8 @@ public class AgentController : MonoBehaviour
 
     void Move()
     {
+
+        AudioManager.Instance.PlayWalk();
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
         if (Physics.Raycast(ray, out RaycastHit hit, 100f, clickMask))
@@ -291,9 +293,13 @@ public class AgentController : MonoBehaviour
                 aimLine.enabled = false;
             }
 
+            TurnManager.Instance.PlayerFinishedAction();
+            return;
+
         }
 
         AmmoManager.Instance.UseAmmo(); // ��ȷ���������ġ�
+        AudioManager.Instance.PlayShoot();
         //ǹ�ڸ߶�
         Vector3 origin = transform.position + Vector3.up * shootHeight;
         //�泯����
@@ -364,6 +370,7 @@ public class AgentController : MonoBehaviour
 
     private void BlockInteract()
     {
+        AudioManager.Instance.PlayInteract();
         if (!Input.GetMouseButtonDown(0))
         return;
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);

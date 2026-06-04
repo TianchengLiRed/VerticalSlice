@@ -50,6 +50,7 @@ public class CutSceneManager : MonoBehaviour
 
     public void OnClick()
     {
+        AudioManager.Instance.PlayClick();
         clicked = true;
     }
 }

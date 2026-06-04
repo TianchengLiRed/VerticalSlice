@@ -13,15 +13,18 @@ public class NPC : Interactive
             case QuestManager.QuestState.TalkToNPC:
                 DialogueManager.Instance.StartDialogue(talkDialogue);
                 QuestManager.Instance.CompleteTalkToNPC();
+                AudioManager.Instance.PlayTalk();
                 break;
 
             case QuestManager.QuestState.UseComputer:
                 DialogueManager.Instance.StartDialogue(afterComputerDialogue);
+                AudioManager.Instance.PlayTalk();
                 break;
 
             case QuestManager.QuestState.ReturnToSubmit:
                 DialogueManager.Instance.StartDialogue(submitDialogue);
                 QuestManager.Instance.SubmitMainItem();
+                AudioManager.Instance.PlayTalk();
                 break;
         }
     }

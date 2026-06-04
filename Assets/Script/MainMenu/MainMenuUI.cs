@@ -29,11 +29,13 @@ public class MainMenuUI : MonoBehaviour
         if (Input.anyKeyDown)
         {
             MainMenuDisplay();
+            AudioManager.Instance.PlayClick();
             return;
         }
         if (Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1) || Input.GetMouseButtonDown(2))
         {
             MainMenuDisplay();
+            AudioManager.Instance.PlayClick();
             return;
         }
     }
@@ -46,11 +48,13 @@ public class MainMenuUI : MonoBehaviour
 
     private void StartGameOnClicked()
     {
+        AudioManager.Instance.PlayClick();
         SceneManager.LoadScene("CutScene");
     }
 
     private void QuitGameOnClicked()
     {
+        AudioManager.Instance.PlayClick();
         Application.Quit();
     }
 
