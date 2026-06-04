@@ -136,7 +136,6 @@ public class AgentController : MonoBehaviour
     void Move()
     {
 
-        AudioManager.Instance.PlayWalk();
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
         if (Physics.Raycast(ray, out RaycastHit hit, 100f, clickMask))
@@ -194,6 +193,7 @@ public class AgentController : MonoBehaviour
 
     IEnumerator FollowPath(List<Node> path)
     {
+        //AudioManager.Instance.PlayWalk();
         state = PlayerState.Moving;
 
         foreach (Node node in path)
@@ -299,7 +299,7 @@ public class AgentController : MonoBehaviour
         }
 
         AmmoManager.Instance.UseAmmo(); // ��ȷ���������ġ�
-        AudioManager.Instance.PlayShoot();
+       // AudioManager.Instance.PlayShoot();
         //ǹ�ڸ߶�
         Vector3 origin = transform.position + Vector3.up * shootHeight;
         //�泯����

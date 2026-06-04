@@ -5,10 +5,12 @@ using UnityEngine;
 public class GhostHealth : HealthManager
 {
     private GhostController ghostController;
+    private GhostColorChange colorC;
 
     private void Awake()
     {
         ghostController = GetComponent<GhostController>();
+        colorC = GetComponentInChildren<GhostColorChange>();
     }
 
     public override void Heal(float amount)
@@ -31,5 +33,8 @@ public class GhostHealth : HealthManager
 
         if (ghostController != null)
             ghostController.ShowHitAlert();
+
+        colorC.ShaderHealth(currentHealth, maxHealth);
     }
+    
 }

@@ -6,6 +6,7 @@ public class Interactive : MonoBehaviour
 {
     [Header("Highlight")]
     [SerializeField] private Color highlightColor = Color.yellow;
+    
 
     private Renderer _renderer;
     private Color originColor;
@@ -28,6 +29,6 @@ public class Interactive : MonoBehaviour
     }
     public virtual void OnInteract()
     {
-        Debug.Log($"[½»»¥³É¹¦] Äãµã»÷ÁËÎïÆ·: {gameObject.name}");
+        Debug.Log($"[ï¿½ï¿½ï¿½ï¿½ï¿½É¹ï¿½] ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ·: {gameObject.name}");
     }
 }
