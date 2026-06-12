@@ -90,12 +90,20 @@ Script: using GhostColorChange.cs, GhostHealth.cs
 
 This shadergraph implemented that my rendering effect is activated or driven by gameplay logic by improved the previous glowing breathing color effect. Which achieved the effect that the ghost will change its glowing color based on ghost's health value. The specific function of this rendering effect is applied with the following procedures. First when the player shoot the ghost and the ghost reduce its health by calling method TakeDamage() in Ghosthealth.cs. Then, this method call the method from GhostColorChange ShaderHealth(currentHealth, maxHealth); to recalculate the ghost's current health as percentage and use mat.SetFloat("_HealthPercent", percent); so set this updated percentage to the property _HealthPercent in the shader. The _HealthPercent was assigned to the interpolation value of the Lerp node which also connected to two color values. When the ghost's health decrease, the vlaue of _healthPercent also decrease which lead to the change of the interpolation value T and implemented the change of the glowing color based on changes of ghost's health. Also the shader also Combined the Frensel Effect node and Noise node that flowing  based on changing time. Combined these three the shader finally implemented the function that its rendering effect activated based on gameplay. The ghost's color will change based on changing ghost's health that got decreased by the shooting damage player shoot action. 
 
+Question 3:
+
+During the planning phase i always break down the game with personal planning strategies, clarify the game scale and included content by breaking down them into differetn system. I separate the whole game project based on scenes, such as main menu, station scene, selection scene, game scene and end scene, then sketch them on the paper and and break down those elements into systems mainly based on MVC model, separate UI control and data system, clarify which system will appear in each scene, i would like to use bubble diagram to inlcude all objects and systems then connect objects to corresponoding scenes. Then i wrote more specific function that we have to implement and connect them into system that we might use for this function, such as inlcuded method for each system, make sure they are easy to scale and movement or shoot function and break them down into gradual steps to implement and quote specific system that will be used on this function. This helps me understand the whole game scale and implement function, develop the game with more structured and planned strategy. 
+
 Question 3.1:
 
-During the planning phase i always break down the game with specific personal strategies, clarify the game scale and included content by breaking down them into differetn system. I separate the whole game project based on scenes, such as main menu, station scene, selection scene, game scene and end scene
+I would use bubble diagram to help me plan and manage the game, the bubble diagram is helpful that i can break down the game more efficiency. I can visualize the game logic and system by drawing bubbles for each objects, and clarify the relationship between each system and object, based on the arrows between each object and system it helps me strcture and planning the developing process to implemented a function. Also, based on the diagram that i created which visualize and clarify the scale of the game by counting the number of bubble and arrows so that i can estimate my time of workload easier and adjust my game scale using bubble diagram, each bubble represent the specific object with unique and different attributes that reminds me the component that i should inlcude that helps me planning a new function more structrue and specifically.
 
 
 Question 3.2:
+
+
+
+
 Question 3.3:
 
 ## Open-source assets
