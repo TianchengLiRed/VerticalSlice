@@ -69,9 +69,22 @@ Question2: Based on the playtest feedback, of more visualization, UI and need mo
 
 Question3: Because my game is level-based, I added 3 more levels as new content, and players can choose a different level on the computer by clicking different buttons. Each level has a unique level design, the number of ghosts, and space arrangement. Replaced the whitebox with 3D assets. Replace UI with 2D assets, added one more NPC in the station room, now there are 3 NPCs you can talk with, one commander and two ghosts (unrelated to the main storyline) in the form of capsules. New contents expect levels contribute for polish game. Levels as new contents, provide more choice of game loop to explore diverse experiences. Player should use different stratgies for different levels. Those contents expanded players experience of the core game loop, diversed the game loop to make it more replayable.
 
-## Milestone 4 Devlog
-Milestone 4 Devlog goes here.
 ## Final Devlog
-Final Devlog goes here.
+
+Question 1: 
+
+Question 2:
+
+ScreenShot:
+<img width="1013" height="750" alt="截屏2026-06-11 19 21 54" src="https://github.com/user-attachments/assets/97151d6c-b02e-4006-beba-7bdd80029641" />
+
+Script: using GhostColorChange.cs, GhostHealth.cs
+
+This shadergraph implemented that my rendering effect is activated by gameplay logic by adjusted the previous glowing breathing color effect. Which achieved the effect that the ghost will change its glowing color based on ghost's health value
+
+Question 3.1:
+Question 3.2:
+Question 3.3:
+
 ## Open-source assets
 - Cite any external assets used here!
