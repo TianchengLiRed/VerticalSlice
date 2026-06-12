@@ -101,7 +101,7 @@ I would use bubble diagram to help me plan and manage the game, the bubble diagr
 
 Question 3.2:
 
-
+The process of my planning phase is very specific, including sktech of each scene, system and object break down as a bubble diagram and specific function connect to bubble diagram.  By this specific and clarify visualization, I can have a brief scale estimation of the game based on counting bubbles and arrows connected to each bubbles and the length of the plan, it clarify its scale by providing a specific visualization so that i can estimate the workload. i also can break down each develop process such as develop a function into a steps so that i can even estimate each step by time, such as how many times or minutes i will use to finish this step, and overall how long it takes even though i have a trouble in working on that. So i will have a shortest and longest overall workload time by hours. So i can have a estimate scale of my game, also this viusalization help me clarify different importance of each function, so its helpful for me to adjust the game scale by abandon functions based on prioritize.
 
 
 Question 3.3:
