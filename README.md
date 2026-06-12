@@ -73,6 +73,14 @@ Question3: Because my game is level-based, I added 3 more levels as new content,
 
 Question 1: 
 
+The core game loop proceed in the following order based on the task system: 
+The Player in the station talk to NPC and prepare for the adventure, then the player open the computer to select different regions to travel. Whe the player entering to the specific region or level, they will explore and observe the arragement of the environment, managing their resource like ammo and health, avoid from the ghost and fight with the ghost. Then get the target blackbox in the level, escape from the door and return to the station.
+
+For the game content the player will experience the interaction, dialgoue with NPC, and level selection in the computer. Also the game inlcude 3 levels with unique arrangement and strategies. The player will facing the ghost with roaming, chasing attacking status as players enemies, the player will experience and using few strategies based on player gameplay such as turn base movement, shooting, interacting and resource management such as health ammunition. The game also contains UI and visualizations, such as health bar, ammuniation UI, turn bar, damage feedback and corresponding audios.
+
+Even though there are few mechanics and content that were planned on the vertical slice , such as win and lose result, credit system, more ghost with different skills and following polish of the game the game still contain the core gameplay include, preparing and slect level in the station, explore environment, resource managememt, fighiting against ghost stratgies based on environment and task driven game loop, the player could experience the core gameplay include all the system and mechanics we need. This already demonstrate the origin started version of my game with avoiding and fighting with ghost using different strategies based on resource and unique level, and the core game loop based on task system.
+
+
 Question 2:
 
 ScreenShot:
@@ -83,6 +91,10 @@ Script: using GhostColorChange.cs, GhostHealth.cs
 This shadergraph implemented that my rendering effect is activated or driven by gameplay logic by improved the previous glowing breathing color effect. Which achieved the effect that the ghost will change its glowing color based on ghost's health value. The specific function of this rendering effect is applied with the following procedures. First when the player shoot the ghost and the ghost reduce its health by calling method TakeDamage() in Ghosthealth.cs. Then, this method call the method from GhostColorChange ShaderHealth(currentHealth, maxHealth); to recalculate the ghost's current health as percentage and use mat.SetFloat("_HealthPercent", percent); so set this updated percentage to the property _HealthPercent in the shader. The _HealthPercent was assigned to the interpolation value of the Lerp node which also connected to two color values. When the ghost's health decrease, the vlaue of _healthPercent also decrease which lead to the change of the interpolation value T and implemented the change of the glowing color based on changes of ghost's health. Also the shader also Combined the Frensel Effect node and Noise node that flowing  based on changing time. Combined these three the shader finally implemented the function that its rendering effect activated based on gameplay. The ghost's color will change based on changing ghost's health that got decreased by the shooting damage player shoot action. 
 
 Question 3.1:
+
+During the planning phase i always break down the game with specific personal strategies, clarify the game scale and included content by breaking down them into differetn system. I separate the whole game project based on scenes, such as main menu, station scene, selection scene, game scene and end scene
+
+
 Question 3.2:
 Question 3.3:
 
