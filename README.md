@@ -80,7 +80,7 @@ ScreenShot:
 
 Script: using GhostColorChange.cs, GhostHealth.cs
 
-This shadergraph implemented that my rendering effect is activated by gameplay logic by adjusted the previous glowing breathing color effect. Which achieved the effect that the ghost will change its glowing color based on ghost's health value
+This shadergraph implemented that my rendering effect is activated or driven by gameplay logic by adjusted the previous glowing breathing color effect. Which achieved the effect that the ghost will change its glowing color based on ghost's health value. The specific function of this rendering effect is applied with the following procedures. First when the player shoot the ghost and the ghost reduce its health by calling method TakeDamage() in Ghosthealth.cs. Then, this method call the method from GhostColorChange ShaderHealth(currentHealth, maxHealth); to recalculate the ghost's current health as percentage and use mat.SetFloat("_HealthPercent", percent); so set this updated percentage to the property _HealthPercent in the shader. The _HealthPercent was assigned to the interpolation value of the Lerp node which also connected to two color values. When the ghost's health decrease, the vlaue of _healthPercent also decrease which lead to the change of the interpolation value T and implemented the change of the glowing color based on changes of ghost's health. Also the shader also Combined the Frensel Effect node and Noise node that flowing  based on changing time. Combined these three the shader finally implemented the function that its rendering effect activated based on gameplay. The ghost's color will change based on changing ghost's health that got decreased by the shooting damage player shoot action. 
 
 Question 3.1:
 Question 3.2:
