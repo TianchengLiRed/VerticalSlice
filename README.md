@@ -69,9 +69,78 @@ Question2: Based on the playtest feedback, of more visualization, UI and need mo
 
 Question3: Because my game is level-based, I added 3 more levels as new content, and players can choose a different level on the computer by clicking different buttons. Each level has a unique level design, the number of ghosts, and space arrangement. Replaced the whitebox with 3D assets. Replace UI with 2D assets, added one more NPC in the station room, now there are 3 NPCs you can talk with, one commander and two ghosts (unrelated to the main storyline) in the form of capsules. New contents expect levels contribute for polish game. Levels as new contents, provide more choice of game loop to explore diverse experiences. Player should use different stratgies for different levels. Those contents expanded players experience of the core game loop, diversed the game loop to make it more replayable.
 
-## Milestone 4 Devlog
-Milestone 4 Devlog goes here.
 ## Final Devlog
-Final Devlog goes here.
+
+Question 1: 
+
+
+
+The core game loop proceeds in the following order based on the task system: 
+
+The Player in the station talks to the NPC and prepares for the adventure, then the player opens the computer to select different regions to travel. When the player enters the specific region or level, they will explore and observe the arrangement of the environment, managing their resource like ammo and health, avoiding the ghost and fight with the ghost. Then get the target blackbox in the level, escape from the door, and return to the station.
+
+
+
+For the game content, the player will experience the interaction, dialogue with NPC, and level selection in the computer. Also the game includes 3 levels with unique arrangements and strategies. The player will face the ghost with roaming, chasing, and attacking status as the player's enemies. The player will experience and using few strategies based on player gameplay such as turn-based movement, shooting, interacting and resource management such as health and ammunition. The game also contains UI and visualizations, such as a health bar, ammunition UI, turn bar, damage feedback and corresponding audio.
+
+
+
+Even though there are few mechanics and content that were planned on the vertical slice , such as win and lose result, credit system, more ghost with different skills and following polish of the game the game still contain the core gameplay include, preparing and slect level in the station, explore environment, resource managememt, fighiting against ghost stratgies based on environment and task driven game loop, the player could experience the core gameplay include all the system and mechanics we need. This already demonstrates the original version of my game with avoiding and fighting with ghosts using different strategies based on resources and unique level, and the core game loop based on a task system.
+
+
+
+
+
+Question 2:
+
+
+
+ScreenShot:
+
+<img width="1013" height="750" alt="截屏2026-06-11 19 21 54" src="https://github.com/user-attachments/assets/97151d6c-b02e-4006-beba-7bdd80029641" />
+
+
+
+Script: using GhostColorChange.cs, GhostHealth.cs
+
+
+
+This shadergraph implemented that my rendering effect is activated or driven by gameplay logic by improving the previous glowing breathing color effect. This achieved the effect that the ghost will change its glowing color based on the ghost's health value. The specific function of this rendering effect is applied with the following procedures. First when the player shoots the ghost and the ghost reduce its health by calling the method TakeDamage() in Ghosthealth.cs. Then, this method call the method from GhostColorChange ShaderHealth(currentHealth, maxHealth); to recalculate the ghost's current health as a percentage and use mat.SetFloat("_HealthPercent", percent); so set this updated percentage to the property _HealthPercent in the shader. The _HealthPercent was assigned to the interpolation value of the Lerp node, which also connected to two color values. When the ghost's health decreases, the vlaue of _healthPercent also decreases, which lead to the change of the interpolation value T and implements the change of the glowing color based on changes of ghost's health. Also the shader also Combined the Frensel Effect node and Noise node that flowing  based on changing time. Combined these three the shader finally implemented the function that its rendering effect activated based on gameplay. The ghost's color will change based on changing ghost's health that got decreased by the shooting damage player shoot action. 
+
+
+
+Question 3:
+
+
+
+During the planning phase i always break down the game with personal planning strategies, clarify the game scale and include content by breaking them down into differetn system. I separate the whole game project based on scenes, such as main menu, station scene, selection scene, game scene and end scene, then sketch them on the paper and and break down those elements into systems mainly based on MVC model, separate UI control and data system, clarify which system will appear in each scene, i would like to use bubble diagram to inlcude all objects and systems then connect objects to corresponoding scenes. Then i wrote more specific function that we have to implement and connect them into a system that we might use for this function, such as inlcuded method for each system, making sure they are easy to scale and movement or shoot function and break them down into gradual steps to implement and quote a specific system that will be used on this function. This helps me understand the whole game scale and implement functions, develop the game with more structured and planned strategy. 
+
+
+
+Question 3.1:
+
+
+
+I would use a bubble diagram to help me plan and manage the game, the bubble diagram is helpful that i can break down the game more efficiency. I can visualize the game logic and system by drawing bubbles for each objects, and clarify the relationship between each system and object, based on the arrows between each object and system, it helps me strcture and planning the development process to implement a function. Also, based on the diagram that i created which visualize and clarify the scale of the game by counting the number of bubble and arrows so that i can estimate my time of workload easier and adjust my game scale using bubble diagram, each bubble represent the specific object with unique and different attributes that reminds me the component that i should inlcude that helps me planning a new function more structrue and specifically.
+
+
+
+
+
+Question 3.2:
+
+
+
+The process of my planning phase is very specific, including sktech of each scene, system and object breakdown as a bubble diagram and specific function connected to bubble diagram.  By this specific and clear visualization, I can have a brief scale estimation of the game based on counting bubbles and arrows connected to each bubble and the length of the plan, it clarify its scale by providing a specific visualization so that i can estimate the workload. I can also break down each development process such as developing a function into steps so that i can even estimate each step by time, such as how many times or minutes i will use to finish this step, and overall how long it takes, even though i have trouble working on that. So i will have the shortest and longest overall workload time by hours. So i can have an estimated scale of my game, also this viusalization help me clarify different importance of each function, so its helpful for me to adjust the game scale by abandoning functions based on priority.
+
+
+
+
+
+Question 3.3:
+
+
+
+While developing the game, i highly following the steps and connections showed on the plan, which specifically helps me implement each function step by steps, and it also helps me keep my structure clear and nice. I still wanted to repeat this process that breaks down in to project and categorize them into different sections based on MVC model, which helps me keep my hierarchy and scripts structured and clear. However, during the developing phase, I always have to add some new system or object that i use to ignored during during the planning phase, For example, mostly some users friendly features,such as when developing the damage function i still have to add visual feedback like shaking the screen and for movement function i have to add more visulization of move range and more hintUI to make sure people can undestand which i want include in the plan. Which these small functions increase my workload and i have to reestimate and make a new plan the time i have to use on the project. So i made an improvement. provide set estimated time to a range with longest development time and the shortest time to help me scale the project better. i adjust the scale my project every time after playtest, including new task based on feedback and abandoning some unimportant functions to maintain my project's workload.
 ## Open-source assets
 - Cite any external assets used here!
