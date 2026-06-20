@@ -8,6 +8,10 @@ public abstract class Collectible : MonoBehaviour
     protected virtual void OnTriggerEnter(Collider other)
     {
         if (!other.CompareTag("Player")) return;
+        if (AudioManager.Instance != null)
+        {
+            AudioManager.Instance.PlayPick();
+        }
 
         OnCollect();
 

@@ -26,7 +26,7 @@ public class GridManager : MonoBehaviour
         GenerateGrid();
     }
     //ͨ������xy����10*10map
-    private void GenerateGrid()
+    public void GenerateGrid()
     {
         grid.Clear();
 

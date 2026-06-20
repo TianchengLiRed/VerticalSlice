@@ -15,6 +15,7 @@ public class Blockable : MonoBehaviour
 
     [Header("BlockLogic")]
     private UnityEngine.AI.NavMeshObstacle _navemob;
+    private bool isBlocked = false;
 
     [Header("DoorAnimation")]
     [SerializeField] private Transform doorAn;
@@ -48,15 +49,66 @@ public class Blockable : MonoBehaviour
 
     public void OnBlock()
     {
-        Debug.Log("Block!");
-        _navemob.enabled = true;
-        _navemob.carving = true;
-
-        StartCoroutine(CloseDoor());
+        if(isBlocked)
+        {
+            DoorOpen();
+        }
+        else
+        {
+            DoorClose();
+        }
+        
 
     }
 
-    private IEnumerator CloseDoor()
+    private void DoorOpen()
+    {
+        isBlocked = false;
+        _navemob.enabled = false;
+        gameObject.layer = LayerMask.NameToLayer("Blockable");
+        if (AudioManager.Instance != null)
+        {
+            AudioManager.Instance.PlayOpen();
+        }
+        StartCoroutine(OpenDoorAnim());
+        GridManager.Instance.GenerateGrid();
+    }
+
+    private void DoorClose()
+    {
+        isBlocked = true;
+        Debug.Log("Block!");
+        _navemob.enabled = true;
+        _navemob.carving = true;
+        gameObject.layer = LayerMask.NameToLayer("Obstacle");
+        if (AudioManager.Instance != null)
+        {
+            AudioManager.Instance.PlayClose();
+        }
+        StartCoroutine(CloseDoorAnim());
+        GridManager.Instance.GenerateGrid();
+    }
+
+    private IEnumerator OpenDoorAnim()
+{
+    Quaternion beginR = doorAn.rotation;
+
+    Quaternion endR =
+        Quaternion.Euler(doorAn.eulerAngles.x, open, doorAn.eulerAngles.z);
+
+    float speed = 0f;
+
+    while (speed < 1f)
+    {
+        speed += rotateSpeed * Time.deltaTime;
+        doorAn.rotation = Quaternion.Lerp(beginR, endR, speed);
+        yield return null;
+    }
+
+    doorAn.rotation = endR;
+}
+
+    private IEnumerator CloseDoorAnim()
     {
         Quaternion beginR = doorAn.rotation;
 

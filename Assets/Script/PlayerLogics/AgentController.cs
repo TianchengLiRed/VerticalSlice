@@ -370,7 +370,6 @@ public class AgentController : MonoBehaviour
 
     private void BlockInteract()
     {
-        AudioManager.Instance.PlayInteract();
         if (!Input.GetMouseButtonDown(0))
         return;
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);

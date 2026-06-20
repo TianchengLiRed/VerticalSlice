@@ -14,6 +14,11 @@ public class AudioManager : MonoBehaviour
     public AudioClip walkSound;
     public AudioClip interactSound;
     public AudioClip shootSound;
+    public AudioClip detectSound;
+    public AudioClip attackSound;
+    public AudioClip pickSound;
+    public AudioClip openSound;
+    public AudioClip closeSound;
 
     public AudioSource sourceSFX;
     public AudioSource sourceBGM;
@@ -85,6 +90,37 @@ public class AudioManager : MonoBehaviour
         if (walkSound != null)
             sourceSFX.PlayOneShot(walkSound);
     }
+
+    public void PlayDetect()
+    {
+        if (detectSound != null)
+            sourceSFX.PlayOneShot(detectSound);
+    }
+
+    public void PlayAttack()
+    {
+        if (attackSound != null)
+            sourceSFX.PlayOneShot(attackSound);
+    }
+
+    public void PlayPick()
+    {
+        if (pickSound != null)
+            sourceSFX.PlayOneShot(pickSound);
+    }
+
+    public void PlayOpen()
+    {
+        if (openSound != null)
+            sourceSFX.PlayOneShot(openSound);
+    }
+
+    public void PlayClose()
+    {
+        if (closeSound != null)
+            sourceSFX.PlayOneShot(closeSound);
+    }
+
 
     
 }

@@ -118,6 +118,10 @@ public class GhostController : MonoBehaviour
         if(newState == GhostState.Chasing)
         {
             alertUI.ShowAlert();
+            if (AudioManager.Instance != null)
+            {
+                AudioManager.Instance.PlayDetect();
+            }
 
         }
 
@@ -258,6 +262,10 @@ public class GhostController : MonoBehaviour
 
     private void Attack()
 {
+    if (AudioManager.Instance != null)
+        {
+            AudioManager.Instance.PlayAttack();
+        }
     Debug.Log("Ghost attacks player!");
 
     if (PlayerHealth.Instance != null)

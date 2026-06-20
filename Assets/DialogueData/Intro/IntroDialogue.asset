@@ -33,13 +33,6 @@ MonoBehaviour:
   - speakerName: 
     portrait: {fileID: 0}
     voiceClip: {fileID: 0}
-    content: feeding on fear, memory, and unfinished regrets.
-    replyOptions: []
-    replyBranches: []
-    loopQuestion: 0
-  - speakerName: 
-    portrait: {fileID: 0}
-    voiceClip: {fileID: 0}
     content: Then the Bureau caught him.
     replyOptions: []
     replyBranches: []

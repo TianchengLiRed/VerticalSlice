@@ -149,7 +149,7 @@ MonoBehaviour:
   state: 0
   blockLayer:
     serializedVersion: 2
-    m_Bits: 1024
+    m_Bits: 3072
   detectRange: 3
   aimBlockMask:
     serializedVersion: 2

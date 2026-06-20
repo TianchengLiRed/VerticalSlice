@@ -8,6 +8,7 @@ public class CaughtedGhost : Interactive
 
     public override void OnInteract()
     {
+        AudioManager.Instance.PlayTalk();
         DialogueManager.Instance.StartDialogue(hateDialogue);
     }
 }

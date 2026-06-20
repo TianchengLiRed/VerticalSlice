@@ -40,7 +40,10 @@ public class ButtonHoverUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     {
         targetScale = hoverScale;
             namePanel.SetActive(true);
-        AudioManager.Instance.PlayHover();
+        if (AudioManager.Instance != null)
+        {
+            AudioManager.Instance.PlayHover();
+        }
     }
 
     public void OnPointerExit(PointerEventData eventData)
@@ -51,7 +54,10 @@ public class ButtonHoverUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
 
     public void OnLevelButtonClicked()
     {
-        AudioManager.Instance.PlayClick();
+        if (AudioManager.Instance != null)
+        {
+            AudioManager.Instance.PlayClick();
+        }
         SceneManager.LoadScene(sceneName);
     }
 }
